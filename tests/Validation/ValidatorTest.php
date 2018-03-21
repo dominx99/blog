@@ -55,6 +55,7 @@ class ValidatorTest extends TestCase {
 
         $errors = $validation->get();
 
+        $this->assertTrue($validation->failed());
         $this->assertCount(3, $errors);
         $this->assertCount(2, $errors['password']);
     }
