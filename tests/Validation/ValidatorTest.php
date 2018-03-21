@@ -8,7 +8,6 @@ use dominx99\blog\Validation\Validator;
 
 use Slim\Http\Environment;
 use Slim\Http\Request;
-use dominx99\blog\App;
 
 class ValidatorTest extends TestCase {
 
