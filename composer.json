@@ -1,0 +1,18 @@
+{
+    "name": "dominx99/blog",
+    "description": "Blog",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dominx99",
+            "email": "dominx992@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "dominx99\\blog\\": "src/"
+        }
+    }
+}
