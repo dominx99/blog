@@ -4,6 +4,11 @@
          verbose="true"
          stopOnFailure="false">
 
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
     <testsuites>
         <testsuite name="Test suite">
             <directory>./tests</directory>
