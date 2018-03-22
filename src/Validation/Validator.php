@@ -4,8 +4,8 @@ namespace dominx99\blog\Validation;
 
 use Respect\Validation\Exceptions\NestedValidationException;
 
-class Validator {
-
+class Validator
+{
     /**
      * @var array errors
      */
@@ -16,12 +16,13 @@ class Validator {
      * @param array $rules rules according to which params will be valited
      * @return object returns object of this class to easily check if validation psases
      */
-    public function validate($params, $rules){
-
-        if($params instanceof \Slim\Http\Request)
+    public function validate($params, $rules)
+    {
+        if($params instanceof \Slim\Http\Request) {
             $params = $params->getParams();
+        }
 
-        foreach($rules as $field => $rule){
+        foreach($rules as $field => $rule) {
             try {
                 $rule->setName(ucfirst($field))->assert($params[$field]);
             } catch (NestedValidationException $e) {
@@ -37,22 +38,24 @@ class Validator {
     /**
      * @return boolean true if validation passes
      */
-    public function passes(){
+    public function passes()
+    {
         return empty($this->errors);
     }
 
     /**
      * @return boolean false if validation failed
      */
-    public function failed(){
+    public function failed()
+    {
         return !empty($this->errors);
     }
 
     /**
      * @return array errors
      */
-    public function get(){
+    public function get()
+    {
         return $this->errors;
     }
-
 }
