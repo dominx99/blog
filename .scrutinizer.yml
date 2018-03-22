@@ -20,5 +20,5 @@ checks:
 
 tools:
     external_code_coverage:
-        timeout: 10000
+        timeout: 1800
         runs: 2
