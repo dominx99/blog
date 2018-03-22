@@ -1,14 +1,13 @@
 language: php
 php:
-  - '7.2.3'
+    - '7.2.3'
 
 before_script:
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
 
 script:
-  - cd vendor/bin
-  - phpcs --standard=psr2 src/
+  - vendor/bin/phpcs --standard=psr2 src/
   - phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
