@@ -7,7 +7,7 @@ use Respect\Validation\Exceptions\NestedValidationException;
 class Validator {
 
     /**
-     * @var array errors while
+     * @var array errors
      */
     protected $errors;
 
@@ -48,6 +48,9 @@ class Validator {
         return !empty($this->errors);
     }
 
+    /**
+     * @return array errors
+     */
     public function get(){
         return $this->errors;
     }
