@@ -18,11 +18,11 @@ class Validator
      */
     public function validate($params, $rules)
     {
-        if($params instanceof \Slim\Http\Request) {
+        if ($params instanceof \Slim\Http\Request) {
             $params = $params->getParams();
         }
 
-        foreach($rules as $field => $rule) {
+        foreach ($rules as $field => $rule) {
             try {
                 $rule->setName(ucfirst($field))->assert($params[$field]);
             } catch (NestedValidationException $e) {
