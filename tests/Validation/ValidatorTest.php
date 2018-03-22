@@ -9,18 +9,12 @@ use dominx99\blog\Validation\Validator;
 use Slim\Http\Environment;
 use Slim\Http\Request;
 
-class ValidatorTest extends TestCase {
-
-    protected $params;
+class ValidatorTest extends TestCase
+{
     protected $rules;
 
-    public function setUp(){
-        $this->params = [
-            'email' => 'ddd@ddd.com',
-            'name' => 'Dominik',
-            'password' => 'haslo123'
-        ];
-
+    public function setUp()
+    {
         $this->rules = [
             'email' => v::notEmpty()->email(),
             'name' => v::notEmpty()->alpha(),
@@ -28,29 +22,34 @@ class ValidatorTest extends TestCase {
         ];
     }
 
-    public function testThatUserDataValidationWorks(){
-        $validation = (new Validator)->validate($this->params, $this->rules);
+    public function testThatRequestCanBeValidated()
+    {
+        $params = [
+            'email' => 'ddd@ddd.com',
+            'name' => 'Dominik',
+            'password' => 'haslo123'
+        ];
 
-        $this->assertTrue($validation->passes());
-    }
-
-    public function testThatRequestCanBeValidated(){
         $env = Environment::mock();
-        $req = Request::createFromEnvironment($env)->withParsedBody($this->params);
+        $req = Request::createFromEnvironment($env)->withParsedBody($params);
 
         $validation = (new Validator)->validate($req, $this->rules);
 
         $this->assertTrue($validation->passes());
     }
 
-    public function testThatErrorsAreSetAfterFailedValidation(){
+    public function testThatErrorsAreSetAfterFailedValidation()
+    {
         $params = [
             'email' => 'ddd.com',
             'name' => '  ',
             'password' => ''
         ];
 
-        $validation = (new Validator)->validate($params, $this->rules);
+        $env = Environment::mock();
+        $req = Request::createFromEnvironment($env)->withParsedBody($params);
+
+        $validation = (new Validator)->validate($req, $this->rules);
 
         $errors = $validation->get();
 
@@ -58,5 +57,4 @@ class ValidatorTest extends TestCase {
         $this->assertCount(3, $errors);
         $this->assertCount(2, $errors['password']);
     }
-
 }
