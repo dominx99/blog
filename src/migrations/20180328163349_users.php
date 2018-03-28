@@ -1,7 +1,5 @@
 <?php
 
-namespace dominx99\school\migrations;
-
 use dominx99\school\Migration\Migration;
 
 class Users extends Migration
