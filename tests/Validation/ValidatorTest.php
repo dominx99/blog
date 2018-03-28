@@ -1,10 +1,10 @@
 <?php
 
-namespace dominx99\blog\Validation;
+namespace dominx99\school\Validation;
 
 use PHPUnit\Framework\TestCase;
 use Respect\Validation\Validator as v;
-use dominx99\blog\Validation\Validator;
+use dominx99\school\Validation\Validator;
 
 use Slim\Http\Environment;
 use Slim\Http\Request;

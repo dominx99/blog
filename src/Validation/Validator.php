@@ -1,6 +1,6 @@
 <?php
 
-namespace dominx99\blog\Validation;
+namespace dominx99\school\Validation;
 
 use Respect\Validation\Exceptions\NestedValidationException;
 use Slim\Http\Request;
