@@ -39,11 +39,11 @@ class Auth
      */
     public static function attempt($email, $password):bool
     {
-        if(!$user = User::where('email', $email)->first()) {
+        if (!$user = User::where('email', $email)->first()) {
             return false;
         }
 
-        if(!password_verify($password, $user->password)) {
+        if (!password_verify($password, $user->password)) {
             return false;
         }
 
