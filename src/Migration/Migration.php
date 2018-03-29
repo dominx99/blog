@@ -12,16 +12,16 @@ class Migration extends AbstractMigration
     /** @var \Illuminate\Database\Schema\Builder $capsule */
     public $schema;
 
-    protected static $environment;
+    protected static $env;
 
-    public static function setEnvironment($environment)
+    public static function setEnvironment($env)
     {
-        self::$environment = $environment;
+        self::$env = $env;
     }
 
     public function init()
     {
-        $this->capsule = Capsule::init(self::$environment ? self::$environment : 'development');
+        $this->capsule = Capsule::init(self::$env ? self::$env : 'development');
         $this->schema = $this->capsule->schema();
     }
 }
