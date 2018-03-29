@@ -13,6 +13,7 @@ class Capsule
         $settings = require('bootstrap/settings.php');
 
         Migration::setEnvironment($environment);
+        echo $environment . "-";
 
         $capsule = new \Illuminate\Database\Capsule\Manager;
         $capsule->addConnection($settings['settings']['db'][$environment]);
