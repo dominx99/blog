@@ -20,20 +20,20 @@ class AuthTest extends TestCase
 
     public function testThatAuthSetsSession()
     {
-        Auth::auth(5);
+        Auth::authorize(5);
         $this->assertTrue(isset($_SESSION['user']));
     }
 
     public function testThatLogoutRemovesSession()
     {
-        Auth::auth(5);
+        Auth::authorize(5);
         Auth::logout();
         $this->assertFalse(isset($_SESSION['user']));
     }
 
     public function testThaCheckMethodWorks()
     {
-        Auth::auth(5);
+        Auth::authorize(5);
         $this->assertTrue(Auth::check());
 
         Auth::logout();

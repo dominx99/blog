@@ -10,7 +10,7 @@ class Auth
      * @param int $user user id
      * Sets user session
      */
-    public static function auth($user):void
+    public static function authorize($user):void
     {
         $_SESSION['user'] = $user;
     }
@@ -47,7 +47,7 @@ class Auth
             return false;
         }
 
-        self::auth($user->id);
+        self::authorize($user->id);
         return true;
     }
 

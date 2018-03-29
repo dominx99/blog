@@ -1,6 +1,6 @@
 <?php
 
-$app->get('/', function ($request, $response) {
+$app->get('/', function () {
     return 'home';
 })->setName('home');
 
