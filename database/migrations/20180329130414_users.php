@@ -7,7 +7,6 @@ class Users extends Migration
 {
     public function up()
     {
-        var_dump('migrating');
         $this->schema->create("users", function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');

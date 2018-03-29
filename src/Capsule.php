@@ -8,14 +8,12 @@ class Capsule
 {
     protected static $capsule;
 
-    public static function init($environment = 'development')
+    public static function init()
     {
         $settings = require('bootstrap/settings.php');
 
-        Migration::setEnvironment($environment);
-
         $capsule = new \Illuminate\Database\Capsule\Manager;
-        $capsule->addConnection($settings['settings']['db'][$environment]);
+        $capsule->addConnection($settings['settings']['db'][Config::get('environment')]);
         $capsule->setAsGlobal();
         $capsule->bootEloquent();
 
