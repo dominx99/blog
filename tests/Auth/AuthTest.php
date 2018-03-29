@@ -14,8 +14,6 @@ class AuthTest extends TestCase
         if(!isset($_SESSION) && !headers_sent()) {
            session_start();
        }
-
-       (new Manager)->migrate();
     }
 
     public function testThatAuthSetsSession()
@@ -42,6 +40,8 @@ class AuthTest extends TestCase
 
     public function testThatAttemptionToLoginWorks()
     {
+        (new Manager)->migrate();
+        
         $user = User::create([
             'email' => 'ddd@ddd.com',
             'name' => 'Dominik',
