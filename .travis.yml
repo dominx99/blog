@@ -4,21 +4,6 @@ php:
   - '7.1'
   - '7.2'
 
-services:
-  - sqlite3
-
-test:
-  adapter: sqlite3
-  database: ":memory:"
-  timeout: 500
-
-addons:
-  apt:
-    sources:
-      - travis-ci/sqlite3
-    packages:
-      - sqlite3
-
 before_script:
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
