@@ -20,7 +20,6 @@ addons:
       - sqlite3
 
 before_script:
-  - sudo service apache restart
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
 
