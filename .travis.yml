@@ -15,8 +15,12 @@ test:
 env:
   - DB=sqlite
 
-before_install:
-  - sudo apt-get -qq update && sudo apt-get install sqlite3
+addons:
+  apt:
+    sources:
+      - travis-ci/sqlite3
+    packages:
+      - sqlite3
 
 before_script:
   - travis_retry composer self-update
