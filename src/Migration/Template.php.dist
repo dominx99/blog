@@ -1,7 +1,5 @@
 <?php
 
-namespace dominx99\school\migrations;
-
 use dominx99\school\Migration\Migration;
 use Illuminate\Database\Schema\Blueprint;
 

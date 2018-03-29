@@ -1,12 +1,13 @@
 <?php
 
 use dominx99\school\Migration\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Users extends Migration
 {
     public function up()
     {
-        $this->schema->create('users', function (Illuminate\Database\Schema\Blueprint $table) {
+        $this->schema->create("users", function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
             $table->string('name');
@@ -17,6 +18,6 @@ class Users extends Migration
 
     public function down()
     {
-        $this->schema->drop('users');
+        $this->schema->drop("users");
     }
 }
