@@ -14,7 +14,7 @@ class AuthControllerTest extends TestCase
     {
         $this->assertTrue(true);
 
-        $app = (new App)->boot();
+        $app = (new App('testing'))->boot();
         $container = $app->getContainer();
 
         $container['environment'] = function(){
