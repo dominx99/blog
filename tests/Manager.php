@@ -16,7 +16,14 @@ class Manager
        $capsule = Capsule::init('testing');
        $pdo = $capsule->connection('default')->getPdo();
 
-       $configArray = Yaml::parse(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'phinx.yml'));
+       $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'phinx.yml';
+       $file = file_get_contents($path);
+       $configArray = Yaml::parse($file);
+       var_dump($path);
+       var_dump($file);
+       var_dump($configArray);
+       var_dump($pdo);
+
        $configArray['environments']['testing'] = [
           'adapter'    => 'sqlite',
           'connection' => $pdo
