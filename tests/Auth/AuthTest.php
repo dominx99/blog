@@ -40,9 +40,9 @@ class AuthTest extends TestCase
 
     public function testThatAttemptionToLoginWorks()
     {
+        $capsule = \dominx99\school\Capsule::init('testing');
         (new Manager)->migrate();
 
-        // $capsule = \dominx99\school\Capsule::init('testing');
         // $schema = $capsule->schema();
         //
         // $schema->create('users', function (\Illuminate\Database\Schema\Blueprint $table) {

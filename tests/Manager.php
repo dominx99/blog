@@ -14,7 +14,7 @@ class Manager
     public function migrate()
     {
        $capsule = Capsule::init('testing');
-       $pdo = $capsule->connection('default')->getPdo();
+       $pdo = $capsule->connection()->getPdo();
 
        $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'phinx.yml';
        $file = file_get_contents($path);
@@ -22,6 +22,7 @@ class Manager
 
        $configArray['environments']['testing'] = [
           'adapter'    => 'sqlite',
+          'memory' => 'true',
           'connection' => $pdo
        ];
        $config = new Config($configArray);
