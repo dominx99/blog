@@ -11,5 +11,5 @@ $container['validator'] = function () {
 };
 
 $container['AuthController'] = function ($container) {
-  return new \dominx99\school\Controllers\AuthController($container);
+    return new \dominx99\school\Controllers\AuthController($container);
 };

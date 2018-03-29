@@ -7,6 +7,6 @@ $app->get('/', function () {
 $app->get('/register', 'AuthController:registerForm')->setName('register');
 $app->post('/register', 'AuthController:register');
 
-$app->get('/dashboard', function() {
+$app->get('/dashboard', function () {
     return 'dashboard';
 })->setName('dashboard');
