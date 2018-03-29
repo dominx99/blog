@@ -17,7 +17,7 @@ return [
             'testing' => [
                 'driver' => 'sqlite',
                 'database' => ':memory:',
-                'prefix' => 'school_'
+                'prefix' => ''
             ]
         ],
     ],
