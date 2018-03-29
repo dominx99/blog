@@ -1,5 +1,5 @@
 paths:
-    migrations: 'database\migrations'
+    migrations: '%%PHINX_CONFIG_DIR%%/database/migrations'
     seeds: '%%PHINX_CONFIG_DIR%%/src/seeds'
 
 templates:
