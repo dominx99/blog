@@ -12,9 +12,6 @@ test:
   database: ":memory:"
   timeout: 500
 
-env:
-  - DB=sqlite
-
 addons:
   apt:
     sources:
@@ -23,6 +20,8 @@ addons:
       - sqlite3
 
 before_script:
+  - sudo service apache2 restart
+  - sudo service apache restart
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
 
