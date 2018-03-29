@@ -8,7 +8,7 @@ class Capsule
 {
     protected static $capsule;
 
-    public static function init($environment = 'development')
+    public static function init($environment = 'testing')
     {
         $settings = require('bootstrap/settings.php');
 
