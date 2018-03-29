@@ -1,6 +1,6 @@
 paths:
     migrations: '%%PHINX_CONFIG_DIR%%database/migrations'
-    seeds: '%%PHINX_CONFIG_DIR%%/src/seeds'
+    seeds: '%%PHINX_CONFIG_DIR%%database/seeds'
 
 templates:
     file: '%%PHINX_CONFIG_DIR%%/src/Migration/Template.php.dist'

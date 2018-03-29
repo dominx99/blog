@@ -21,7 +21,7 @@ class Migration extends AbstractMigration
 
     public function init()
     {
-        $this->capsule = Capsule::init(self::$env ? self::$env : 'testing');
+        $this->capsule = Capsule::init(self::$env ? self::$env : 'development');
         var_dump('environment:' . self::$env);
         $this->schema = $this->capsule->schema();
     }
