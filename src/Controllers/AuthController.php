@@ -5,8 +5,11 @@ namespace dominx99\school\Controllers;
 use Respect\Validation\Validator as v;
 
 use dominx99\school\Models\User;
-use dominx99\school\Validation\Validator;
 
+/**
+ * @property object $validator
+ * @property object $router
+ */
 class AuthController extends Controller
 {
     public function register($request, $response)
