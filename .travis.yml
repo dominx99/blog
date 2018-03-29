@@ -1,3 +1,4 @@
+group: edge
 language: php
 php:
   - '7.1'
@@ -13,8 +14,6 @@ test:
 
 env:
   - DB=sqlite
-  - DB=mysql
-  - DB=postgres
 
 before_script:
   - travis_retry composer self-update
