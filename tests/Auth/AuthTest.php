@@ -9,6 +9,8 @@ use dominx99\school\Manager;
 
 class AuthTest extends TestCase
 {
+    use Manager;
+
     public function setUp()
     {
         if(!isset($_SESSION) && !headers_sent()) {
@@ -40,7 +42,7 @@ class AuthTest extends TestCase
 
     public function testThatAttemptionToLoginWorks()
     {
-        (new Manager)->migrate();
+        $this->migrate();
 
         $user = User::create([
             'email' => 'ddd@ddd.com',

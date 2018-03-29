@@ -6,12 +6,12 @@ class App
 {
     protected $app;
 
-    public function __construct($env = 'development')
-    {
+    public function __construct()
+    {        
         $settings = require __DIR__ . '/bootstrap/settings.php';
         $app = new \Slim\App($settings);
 
-        $capsule = Capsule::init($env);
+        $capsule = Capsule::init();
 
         require __DIR__ . '/bootstrap/dependency.php';
         require __DIR__ . '/bootstrap/routes.php';

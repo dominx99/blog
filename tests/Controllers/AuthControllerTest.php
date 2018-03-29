@@ -7,14 +7,17 @@ use Slim\Http\Environment;
 use Slim\Http\Request;
 
 use dominx99\school\App;
+use dominx99\school\Manager;
 
 class AuthControllerTest extends TestCase
 {
+    use Manager;
+
     public function testController()
     {
         $this->assertTrue(true);
 
-        $app = (new App('testing'))->boot();
+        $app = $this->createApplication();
         $container = $app->getContainer();
 
         $container['environment'] = function(){
