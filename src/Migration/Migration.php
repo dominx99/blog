@@ -2,9 +2,9 @@
 
 namespace dominx99\school\Migration;
 
+use Phinx\Migration\AbstractMigration;
 use dominx99\school\Capsule;
 use dominx99\school\Config;
-use Phinx\Migration\AbstractMigration;
 
 class Migration extends AbstractMigration
 {
@@ -15,7 +15,7 @@ class Migration extends AbstractMigration
 
     public function init()
     {
-        $this->capsule = Capsule::init(Config::get('environment'));
+        $this->capsule = Capsule::init();
         $this->schema = $this->capsule->schema();
     }
 }
