@@ -13,21 +13,21 @@ class Manager
 {
     public function migrate()
     {
-       $capsule = Capsule::init('testing');
-       $pdo = $capsule->connection()->getPdo();
+       // $pdo = $capsule->connection()->getPdo();
 
        $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'phinx.yml';
        $file = file_get_contents($path);
        $configArray = Yaml::parse($file);
 
-       $configArray['environments']['testing'] = [
-          'adapter'    => 'sqlite',
-          'memory' => 'true',
-          'connection' => $pdo
-       ];
+       // $configArray['environments']['testing'] = [
+       //    'adapter'    => 'sqlite',
+       //    'memory' => 'true',
+       //    'connection' => $pdo
+       // ];
        $config = new Config($configArray);
-
        $manager = new PhinxManager($config, new StringInput(' '), new NullOutput());
+
+       Capsule::init('testing');
        $manager->migrate('testing');
     }
 }
