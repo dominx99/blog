@@ -15,6 +15,11 @@
             "email": "dominx992@gmail.com"
         }
     ],
+    "config": {
+        "github-oauth": {
+            "github.com": "4148758049a666ca808ac29c156def9e7738e9c8"
+        }
+    },
     "minimum-stability": "stable",
     "require-dev": {
         "phpunit/phpunit": "^7.0",
