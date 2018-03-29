@@ -13,7 +13,7 @@ class Config
 
     public static function get($property)
     {
-        if(empty(self::$$property)) {
+        if (empty(self::$$property)) {
             $config = require('bootstrap/config.php');
             self::$$property = $config[$property];
         }
