@@ -9,12 +9,17 @@ use Slim\Http\Request;
 use dominx99\school\App;
 use dominx99\school\Manager;
 use dominx99\school\Models\User;
+use dominx99\school\Csrf\Csrf;
+use Psr\Http\Message\ServerRequestInterface;
+
+session_start();
 
 class AuthControllerTest extends TestCase
 {
     use Manager;
 
     protected $app;
+    protected $guard;
 
     public function setUp()
     {
@@ -46,8 +51,8 @@ class AuthControllerTest extends TestCase
 
         $user = User::where('email', 'ddd@ddd.com')->first();
 
-        $this->assertFalse(empty($user));
         $this->assertEquals(302, $response->getStatusCode());
+        $this->assertFalse(empty($user));
         $this->assertSame($container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
     }
 
@@ -76,6 +81,6 @@ class AuthControllerTest extends TestCase
         $user = User::where('email', 'ddd@ddd.com')->first();
 
         $this->assertTrue(empty($user));
-        $this->assertEquals($container->router->pathFor('register'), $response->getHeader('Location')[0]);
+        $this->assertEquals(302, $response->getStatusCode());
     }
 }

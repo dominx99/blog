@@ -6,6 +6,10 @@ $container['db'] = function () use ($capsule) {
     return $capsule;
 };
 
+$container['csrf'] = function () {
+    return new \Slim\Csrf\Guard;
+};
+
 $container['validator'] = function () {
     return new \dominx99\school\Validation\Validator;
 };

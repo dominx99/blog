@@ -40,7 +40,7 @@
         "respect/validation": "^1.1",
         "slim/slim": "^3.9",
         "illuminate/database": "^5.6",
-        "eloquent/phony-phpunit": "^4.0"
+        "slim/csrf": "^0.8.2"
     },
     "scripts": {
         "test": [

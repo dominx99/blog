@@ -39,7 +39,7 @@ trait Manager
 
     /**
      * @return \Slim\App instance
-     * Function which has only to call and create Slim App instance 
+     * Function which has only to call and create Slim App instance
      */
     public function createApplication()
     {
