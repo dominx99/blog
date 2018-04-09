@@ -17,3 +17,7 @@ $container['validator'] = function () {
 $container['AuthController'] = function ($container) {
     return new \dominx99\school\Controllers\AuthController($container);
 };
+
+$container['ApiAuthController'] = function ($container) {
+    return new \dominx99\school\Controllers\Api\ApiAuthController($container);
+};

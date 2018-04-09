@@ -8,11 +8,6 @@ if(Config::get('environment') != 'testing') {
 
 $app->get('/', function () use ($app) {
     return 'home';
-    // $guard = new \dominx99\school\Csrf\Csrf($this->csrf);
-    // var_dump($guard->getTokens());
-
-    //$result = $guard->validateToken('name_key', 'value_key');
-    //var_dump($result);
 })->setName('home');
 
 $app->get('/register', 'AuthController:registerForm')->setName('register');

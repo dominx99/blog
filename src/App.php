@@ -20,7 +20,8 @@ class App
         $capsule = Capsule::init();
 
         require __DIR__ . '/bootstrap/dependency.php';
-        require __DIR__ . '/bootstrap/routes.php';
+        require __DIR__ . '/routes/web.php';
+        require __DIR__ . '/routes/api.php';
 
         $this->app = $app;
     }
