@@ -6,6 +6,9 @@ use Respect\Validation\Validator as v;
 use dominx99\school\Controllers\Controller;
 use dominx99\school\Models\User;
 
+/**
+ * @property object validator
+ */
 class ApiAuthController extends Controller
 {
     public function register($request, $response)

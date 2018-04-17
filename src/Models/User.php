@@ -4,6 +4,9 @@ namespace dominx99\school\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method create(array $params)
+ */
 class User extends Model
 {
     /**

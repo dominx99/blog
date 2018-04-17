@@ -41,7 +41,13 @@ class ApiAuthControllerTest extends TestCase
 
         $exists = User::where('email', $params['email'])->exists();
 
+        $expected = json_encode([
+            'status' => 'success',
+            'code' => 200
+        ]);
+
         $this->assertTrue($exists);
+        $this->assertEquals($expected, $response->getBody());
     }
 
     public function testThatApiValidatesData()
