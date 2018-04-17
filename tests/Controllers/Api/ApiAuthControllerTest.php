@@ -47,9 +47,9 @@ class ApiAuthControllerTest extends TestCase
     public function testThatApiValidatesData()
     {
         $params = [
-            'email' => 'ddd.com',
-            'name' => '',
-            'password' => 'abc'
+            'email' => 'ddd.com', // bad email
+            'name' => '', // name cannot be empty
+            'password' => 'abc' // passwod is too short (6, 16)
         ];
 
         $request = $this->newRequest([

@@ -2,7 +2,7 @@
 
 use dominx99\school\Config;
 
-if(Config::get('environment') != 'testing') {
+if (Config::get('environment') != 'testing') {
     $app->add($container->get('csrf'));
 }
 
