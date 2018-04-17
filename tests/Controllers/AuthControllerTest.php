@@ -5,12 +5,13 @@ namespace dominx99\school\Controllers;
 use PHPUnit\Framework\TestCase;
 use Slim\Http\Environment;
 use Slim\Http\Request;
-
+use Slim\Http\Response;
+use Psr\Http\Message\ServerRequestInterface;
 use dominx99\school\App;
 use dominx99\school\Manager;
 use dominx99\school\Models\User;
+use dominx99\school\Auth\Auth;
 use dominx99\school\Csrf\Csrf;
-use Psr\Http\Message\ServerRequestInterface;
 
 session_start();
 
@@ -25,10 +26,13 @@ class AuthControllerTest extends TestCase
     {
         $this->app = $this->createApplication();
         $this->migrate();
+
+        Auth::logout();
     }
 
     public function testThatRegisterWorks()
     {
+        $app = $this->app;
         $container = $this->app->getContainer();
 
         $params = [
@@ -37,20 +41,17 @@ class AuthControllerTest extends TestCase
             'password' => 'dddddd'
         ];
 
-        $params = http_build_query($params);
+        $request = $this->newRequest([
+            'uri' => '/register',
+            'method' => 'post',
+        ], $params);
 
-        $container['environment'] = function() use ($params) {
-            return Environment::mock([
-                'REQUEST_URI' => '/register',
-                'REQUEST_METHOD' => 'POST',
-                'QUERY_STRING' => $params
-            ]);
-        };
-
-        $response = $this->app->run(true);
+        $response = $app($request, new Response());
 
         $user = User::where('email', 'ddd@ddd.com')->first();
 
+        $this->assertTrue(Auth::check());
+        $this->assertEquals(Auth::user()->email, $params['email']);
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertFalse(empty($user));
         $this->assertSame($container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
@@ -58,6 +59,7 @@ class AuthControllerTest extends TestCase
 
     public function testThatQueryWithWrongDataWillRedirectBack()
     {
+        $app = $this->app;
         $container = $this->app->getContainer();
 
         $params = [
@@ -66,21 +68,17 @@ class AuthControllerTest extends TestCase
             'password' => 'ddd' // password is too short (6, 16)
         ];
 
-        $params = http_build_query($params);
+        $request = $this->newRequest([
+            'uri' => '/register',
+            'method' => 'post'
+        ], $params);
 
-        $container['environment'] = function() use ($params) {
-            return Environment::mock([
-                'REQUEST_URI' => '/register',
-                'REQUEST_METHOD' => 'POST',
-                'QUERY_STRING' => $params
-            ]);
-        };
-
-        $response = $this->app->run(true);
+        $response = $app($request, new Response());
 
         $user = User::where('email', 'ddd@ddd.com')->first();
 
         $this->assertTrue(empty($user));
         $this->assertEquals(302, $response->getStatusCode());
+        $this->assertSame($container->router->pathFor('register'), $response->getHeader('Location')[0]);
     }
 }

@@ -7,6 +7,7 @@ use Slim\Http\Response;
 use Slim\App;
 use dominx99\school\Manager;
 use dominx99\school\Models\User;
+use dominx99\school\Auth\Auth;
 
 class ApiAuthControllerTest extends TestCase
 {
@@ -24,6 +25,8 @@ class ApiAuthControllerTest extends TestCase
 
     public function testThatApiRegistrationWorks()
     {
+        Auth::logout();
+
         $params = [
             'email' => 'ddd@ddd.com',
             'name' => 'ddd',
@@ -46,7 +49,12 @@ class ApiAuthControllerTest extends TestCase
             'code' => 200
         ]);
 
+        $authorized = Auth::check();
+        $email = Auth::user()->email;
+
         $this->assertTrue($exists);
+        $this->assertTrue($authorized);
+        $this->assertEquals($email, $params['email']);
         $this->assertEquals($expected, $response->getBody());
     }
 

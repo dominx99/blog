@@ -52,10 +52,13 @@ class Auth
     }
 
     /**
-     *  @return User returns User model instance which is logged in
+     *  @return User|false returns User model instance which is logged in
      */
-    public static function user():User
+    public static function user()
     {
-        return User::find($_SESSION['user']);
+        if (isset($_SESSION['user'])) {
+            return User::find($_SESSION['user']);
+        }
+        return false;
     }
 }

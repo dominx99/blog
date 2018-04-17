@@ -5,6 +5,7 @@ namespace dominx99\school\Controllers\Api;
 use Respect\Validation\Validator as v;
 use dominx99\school\Controllers\Controller;
 use dominx99\school\Models\User;
+use dominx99\school\Auth\Auth;
 
 /**
  * @property object validator
@@ -28,11 +29,13 @@ class ApiAuthController extends Controller
 
         $params = $request->getParsedBody();
 
-        User::create([
+        $user = User::create([
             'email' => $params['email'],
             'name' => $params['name'],
             'password' => password_hash($params['password'], PASSWORD_DEFAULT)
         ]);
+
+        Auth::authorize($user->id);
 
         return $response->WithJson([
             'status' => 'success',

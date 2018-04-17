@@ -5,6 +5,7 @@ namespace dominx99\school\Controllers;
 use Respect\Validation\Validator as v;
 
 use dominx99\school\Models\User;
+use dominx99\school\Auth\Auth;
 
 /**
  * @property object $validator
@@ -26,11 +27,13 @@ class AuthController extends Controller
 
         $params = $request->getParams();
 
-        User::create([
+        $user = User::create([
             'email' => $params['email'],
             'name' => $params['name'],
             'password' => password_hash($params['password'], PASSWORD_DEFAULT)
         ]);
+
+        Auth::authorize($user->id);
 
         return $response->withRedirect($this->router->pathFor('dashboard'));
     }
