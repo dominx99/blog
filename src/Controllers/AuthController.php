@@ -58,7 +58,7 @@ class AuthController extends Controller
 
         if (!$user = User::where('email', $params['email'])->first()) {
             return $error;
-        } else if (!password_verify($params['password'], $user->password)) {
+        } elseif (!password_verify($params['password'], $user->password)) {
             return $error;
         }
 
