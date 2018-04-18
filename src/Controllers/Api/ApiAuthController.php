@@ -36,8 +36,10 @@ class ApiAuthController extends Controller
         ]);
 
         Auth::authorize($user->id);
+        $token = Auth::getToken();
 
         return $response->WithJson([
+            'token' => $token,
             'status' => 'success',
             'code' => 200
         ]);

@@ -2,7 +2,10 @@
 
 namespace dominx99\school\Auth;
 
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 use dominx99\school\Models\User;
+use dominx99\school\Config;
 
 class Auth
 {
@@ -52,7 +55,7 @@ class Auth
     }
 
     /**
-     *  @return User|false returns User model instance which is logged in
+     * @return User|false returns User model instance which is logged in
      */
     public static function user()
     {
@@ -60,5 +63,22 @@ class Auth
             return User::find($_SESSION['user']);
         }
         return false;
+    }
+
+    /**
+     * @return string $token
+     * Function generates token from authorized User Id
+     */
+    public static function getToken():string
+    {
+        $key = Config::get('jwtKey');
+        $signer = new Sha256();
+
+        $token = (string) (new Builder)
+            ->set('id', static::user()->id)
+            ->sign($signer, $key)
+            ->getToken();
+
+        return $token;
     }
 }

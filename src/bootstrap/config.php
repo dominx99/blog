@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'environment' => 'development'
+    'environment' => 'development',
+    'jwtKey' => 'school_info'
 ];

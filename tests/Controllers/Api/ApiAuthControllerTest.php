@@ -3,11 +3,14 @@
 namespace dominx99\school\Controllers\Api;
 
 use PHPUnit\Framework\TestCase;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Slim\Http\Response;
 use Slim\App;
 use dominx99\school\Manager;
 use dominx99\school\Models\User;
 use dominx99\school\Auth\Auth;
+use dominx99\school\Config;
 
 class ApiAuthControllerTest extends TestCase
 {
@@ -42,19 +45,29 @@ class ApiAuthControllerTest extends TestCase
         $app = $this->app;
         $response = $app($request, new Response());
 
-        $exists = User::where('email', $params['email'])->exists();
+        $userExists = User::where('email', $params['email'])->exists();
+
+        $this->assertTrue($userExists);
+        $this->assertTrue(Auth::check());
+        $this->assertEquals(Auth::user()->email, $params['email']);
+
+        $signer = new Sha256();
+        $key = Config::get('jwtKey');
+
+        $token = (string) (new Builder)
+            ->set('id', Auth::user()->id)
+            ->sign($signer, $key)
+            ->getToken();
 
         $expected = json_encode([
+            'token' => $token,
             'status' => 'success',
             'code' => 200
         ]);
 
-        $authorized = Auth::check();
-        $email = Auth::user()->email;
+        $authToken = Auth::getToken();
 
-        $this->assertTrue($exists);
-        $this->assertTrue($authorized);
-        $this->assertEquals($email, $params['email']);
+        $this->assertEquals($token, $authToken);
         $this->assertEquals($expected, $response->getBody());
     }
 
@@ -75,7 +88,7 @@ class ApiAuthControllerTest extends TestCase
         $app = $this->app;
         $response = $app($request, new Response());
 
-        $exists = User::where('email', $params['email'])->exists();
+        $userExists = User::where('email', $params['email'])->exists();
 
         $expected = [
             'status' => 'fail',
@@ -84,7 +97,7 @@ class ApiAuthControllerTest extends TestCase
 
         $expected = json_encode($expected);
 
-        $this->assertFalse($exists);
+        $this->assertFalse($userExists);
         $this->assertEquals($expected, $response->getBody());
     }
 }

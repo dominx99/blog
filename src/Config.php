@@ -10,6 +10,11 @@ class Config
     protected static $environment;
 
     /**
+     * @var string $jwtKey
+     */
+    protected static $jwtKey;
+
+    /**
      * @param string $property
      * @param string $value
      * Function which has to set property of this class

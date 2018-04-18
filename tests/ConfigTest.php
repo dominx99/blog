@@ -14,11 +14,13 @@ class ConfigTest extends TestCase
         $this->assertFalse(empty($env));
     }
 
-    public function testThatEnvironmentIsNotEmptyWithoutSettingProperty()
+    public function testThatIndexIsNotEmptyEvenWithoutSettingProperty()
     {
         Config::set('environment', null);
         $env = Config::get('environment');
+        $key = Config::get('jwtKey');
 
+        $this->assertFalse(empty($key));
         $this->assertFalse(empty($env));
         $this->assertEquals($env, 'development');
     }
