@@ -20,14 +20,28 @@ class AuthControllerTest extends TestCase
     use Manager;
 
     protected $app;
-    protected $guard;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->app = $this->createApplication();
         $this->migrate();
-
         Auth::logout();
+
+        $this->params = [
+            'email' => 'ddd@ddd.com',
+            'name' => 'ddd',
+            'password' => 'dddddd'
+        ];
+    }
+
+    public function register()
+    {
+        $request = $this->newRequest([
+            'uri' => '/register',
+            'method' => 'post',
+        ], $this->params);
+
+        return $response = ($this->app)($request, new Response());
     }
 
     public function testThatRegisterWorks()
@@ -35,29 +49,18 @@ class AuthControllerTest extends TestCase
         $app = $this->app;
         $container = $this->app->getContainer();
 
-        $params = [
-            'email' => 'ddd@ddd.com',
-            'name' => 'ddd',
-            'password' => 'dddddd'
-        ];
-
-        $request = $this->newRequest([
-            'uri' => '/register',
-            'method' => 'post',
-        ], $params);
-
-        $response = $app($request, new Response());
+        $response = $this->register();
 
         $user = User::where('email', 'ddd@ddd.com')->first();
 
         $this->assertTrue(Auth::check());
-        $this->assertEquals(Auth::user()->email, $params['email']);
+        $this->assertEquals(Auth::user()->email, $this->params['email']);
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertFalse(empty($user));
         $this->assertSame($container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
     }
 
-    public function testThatQueryWithWrongDataWillRedirectBack()
+    public function testThatRegistrationWithWrongDataWillRedirectBack()
     {
         $app = $this->app;
         $container = $this->app->getContainer();
@@ -75,10 +78,62 @@ class AuthControllerTest extends TestCase
 
         $response = $app($request, new Response());
 
-        $user = User::where('email', 'ddd@ddd.com')->first();
+        $userExists = User::where('email', 'ddd@ddd.com')->exists();
 
-        $this->assertTrue(empty($user));
+        $this->assertFalse($userExists);
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertSame($container->router->pathFor('register'), $response->getHeader('Location')[0]);
+    }
+
+    /**
+     * @depends testThatRegisterWorks
+     */
+    public function testThatLoginWorks()
+    {
+        $app = $this->app;
+        $container = $this->app->getContainer();
+
+        $this->register();
+        Auth::logout();
+
+        $request = $this->newRequest([
+            'uri' => '/login',
+            'method' => 'post'
+        ], $this->params);
+
+        $response = $app($request, new Response());
+
+        $user = User::where('email', $this->params['email'])->first();
+
+        $this->assertTrue(Auth::check());
+        $this->assertEquals(Auth::user(), $user);
+        $this->assertSame($container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
+    }
+
+    /**
+     * @depends testThatRegisterWorks
+     */
+    public function testThatLoginWrongDataRedirectsBack()
+    {
+        $app = $this->app;
+        $container = $this->app->getContainer();
+
+        $this->register();
+        Auth::logout();
+
+        $params = [
+            'email' => 'ddd@ddd.com',
+            'password' => 'eeeeee'
+        ];
+
+        $request = $this->newRequest([
+            'uri' => '/login',
+            'method' => 'post'
+        ], $params);
+
+        $response = $app($request, new Response());
+
+        $this->assertFalse(Auth::check());
+        $this->assertSame($container->router->pathFor('login'), $response->getHeader('Location')[0]);
     }
 }

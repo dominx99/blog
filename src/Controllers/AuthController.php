@@ -13,6 +13,16 @@ use dominx99\school\Auth\Auth;
  */
 class AuthController extends Controller
 {
+    public function registerForm($request, $response)
+    {
+        return $this->view->render($response, 'auth/register.twig');
+    }
+
+    public function loginForm($request, $response)
+    {
+        return $this->view->render($response, 'auth/login.twig');
+    }
+
     public function register($request, $response)
     {
         $validation = $this->validator->validate($request, [
@@ -32,6 +42,25 @@ class AuthController extends Controller
             'name' => $params['name'],
             'password' => password_hash($params['password'], PASSWORD_DEFAULT)
         ]);
+
+        Auth::authorize($user->id);
+
+        return $response->withRedirect($this->router->pathFor('dashboard'));
+    }
+
+    public function login($request, $response)
+    {
+        $params = $request->getParams();
+
+        $error = $response->withRedirect($this->router->pathFor('login', [
+            'error' => 'Wrong email or password.'
+        ]));
+
+        if (!$user = User::where('email', $params['email'])->first()) {
+            return $error;
+        } else if (!password_verify($params['password'], $user->password)) {
+            return $error;
+        }
 
         Auth::authorize($user->id);
 

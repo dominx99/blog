@@ -41,7 +41,8 @@
         "slim/slim": "^3.9",
         "illuminate/database": "^5.6",
         "slim/csrf": "^0.8.2",
-        "lcobucci/jwt": "^3.2"
+        "lcobucci/jwt": "^3.2",
+        "slim/twig-view": "^2.3"
     },
     "scripts": {
         "test": [

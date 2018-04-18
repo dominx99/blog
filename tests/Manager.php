@@ -75,7 +75,7 @@ trait Manager
         $serverParams = $env->all();
         $body = new RequestBody();
         $request = new Request($options['method'], $uri, $headers, $cookies, $serverParams, $body);
-        
+
         $request = $request->withParsedBody($params);
         $request = $request->withHeader('Content-Type', $options['content_type']);
         $request = $request->withMethod($options['method']);
