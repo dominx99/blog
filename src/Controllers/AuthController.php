@@ -10,6 +10,7 @@ use dominx99\school\Auth\Auth;
 /**
  * @property object $validator
  * @property object $router
+ * @property object $view
  */
 class AuthController extends Controller
 {
