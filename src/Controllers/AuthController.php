@@ -53,17 +53,11 @@ class AuthController extends Controller
     {
         $params = $request->getParams();
 
-        $error = $response->withRedirect($this->router->pathFor('login', [
-            'error' => 'Wrong email or password.'
-        ]));
-
-        if (!$user = User::where('email', $params['email'])->first()) {
-            return $error;
-        } elseif (!password_verify($params['password'], $user->password)) {
-            return $error;
+        if (!Auth::attempt($params['email'], $params['password'])) {
+            return $response->withRedirect($this->router->pathFor('login', [
+                'error' => 'Wrong email or password.'
+            ]));
         }
-
-        Auth::authorize($user->id);
 
         return $response->withRedirect($this->router->pathFor('dashboard'));
     }

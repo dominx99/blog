@@ -46,14 +46,41 @@ class AuthTest extends TestCase
 
         $user = User::create([
             'email' => 'ddd@ddd.com',
-            'name' => 'Dominik',
-            'password' => password_hash('ddd', PASSWORD_DEFAULT)
+            'name' => 'dddddd',
+            'password' => password_hash('dddddd', PASSWORD_DEFAULT)
         ]);
 
-        $result = Auth::attempt('ddd@ddd.com', 'ddd');
+        $result = Auth::attempt('ddd@ddd.com', 'dddddd');
 
         $this->assertTrue($result);
         $this->assertTrue(Auth::check());
         $this->assertEquals($user->name, Auth::user()->name);
+    }
+
+    /**
+     * @dataProvider wrongDataLoginProvider
+     */
+    public function testThatAttemtionWithWrongDataWontAuth($email, $password)
+    {
+        $this->migrate();
+
+        $user = User::create([
+            'email' => 'ddd@ddd.com',
+            'name' => 'dddddd',
+            'password' => password_hash('dddddd', PASSWORD_DEFAULT)
+        ]);
+
+        $result = Auth::attempt($email, $password);
+
+        $this->assertFalse($result);
+    }
+
+    public function wrongDataLoginProvider()
+    {
+        return [
+            ['ddd.com', 'ddd'],
+            ['ddd@ddd.com' , 'ddd'],
+            ['ddd.com', 'dddddd']
+        ];
     }
 }
