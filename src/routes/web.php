@@ -13,7 +13,6 @@ if (Config::get('environment') != 'testing') {
  * Access Only as Guest
  */
 $app->group('/', function () use ($app) {
-
     $app->get('/', function () use ($app) {
         return 'home';
     })->setName('home');
@@ -23,16 +22,13 @@ $app->group('/', function () use ($app) {
 
     $app->get('login', 'AuthController:loginForm')->setName('login');
     $app->post('login', 'AuthController:login');
-
 })->add(new \dominx99\school\Middleware\GuestMiddleware($container));
 
 /**
  * Access Only as Authorized User
  */
 $app->group('/', function () use ($app) {
-
     $app->get('dashboard', function () {
         return 'dashboard';
     })->setName('dashboard');
-
 })->add(new \dominx99\school\Middleware\AuthMiddleware($container));
