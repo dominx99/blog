@@ -96,8 +96,9 @@ class AuthControllerTest extends TestCase
 
     /**
      * @depends testThatRegisterWorks
+     * @dataProvider loginDataProvider
      */
-    public function testThatLoginWrongDataRedirectsBack()
+    public function testThatLoginWrongDataRedirectsBack($email, $password)
     {
         $app = $this->app;
         $container = $this->app->getContainer();
@@ -106,8 +107,8 @@ class AuthControllerTest extends TestCase
         Auth::logout();
 
         $params = [
-            'email' => 'ddd@ddd.com',
-            'password' => 'eeeeee'
+            'email' => $email,
+            'password' => $password
         ];
 
         $request = $this->newRequest([
@@ -119,5 +120,13 @@ class AuthControllerTest extends TestCase
 
         $this->assertFalse(Auth::check());
         $this->assertSame($container->router->pathFor('login'), $response->getHeader('Location')[0]);
+    }
+
+    public function loginDataProvider()
+    {
+        return [
+           ['ddd.com', 'dddddd'],
+           ['ddd@ddd.com', 'ddd']
+       ];
     }
 }
