@@ -13,7 +13,7 @@ if (Config::get('environment') != 'testing') {
  * Access Only as Guest
  */
 $app->group('/', function () use ($app) {
-    $app->get('/', function () use ($app) {
+    $app->get('', function () use ($app) {
         return 'home';
     })->setName('home');
 
