@@ -3,6 +3,7 @@
 namespace dominx99\school\Controllers;
 
 use Respect\Validation\Validator as v;
+use Slim\Http\Response;
 
 use dominx99\school\Models\User;
 use dominx99\school\Auth\Auth;
@@ -14,14 +15,14 @@ use dominx99\school\Auth\Auth;
  */
 class AuthController extends Controller
 {
-    public function registerForm($request, $response)
+    public function registerForm()
     {
-        return $this->view->render($response, 'auth/register.twig');
+        return $this->view->render(new Response(), 'auth/register.twig');
     }
 
-    public function loginForm($request, $response)
+    public function loginForm()
     {
-        return $this->view->render($response, 'auth/login.twig');
+        return $this->view->render(new Response(), 'auth/login.twig');
     }
 
     public function register($request, $response)

@@ -2,7 +2,7 @@
 
 return [
     'settings' => [
-        'displayErrorsDetails' => true,
+        'displayErrorDetails' => true,
         'db' => [
             'development' => [
                 'driver' => 'mysql',

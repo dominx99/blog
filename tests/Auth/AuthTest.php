@@ -28,7 +28,7 @@ class AuthTest extends TestCase
     {
         Auth::authorize(5);
         Auth::logout();
-        $this->assertFalse(isset($_SESSION['user']));
+        $this->assertFalse(Auth::user());
     }
 
     public function testThaCheckMethodWorks()
