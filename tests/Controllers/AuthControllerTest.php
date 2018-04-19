@@ -26,22 +26,6 @@ class AuthControllerTest extends TestCase
         $this->app = $this->createApplication();
         $this->migrate();
         Auth::logout();
-
-        $this->params = [
-            'email' => 'ddd@ddd.com',
-            'name' => 'ddd',
-            'password' => 'dddddd'
-        ];
-    }
-
-    public function register()
-    {
-        $request = $this->newRequest([
-            'uri' => '/register',
-            'method' => 'post',
-        ], $this->params);
-
-        return $response = ($this->app)($request, new Response());
     }
 
     public function testThatRegisterWorks()
