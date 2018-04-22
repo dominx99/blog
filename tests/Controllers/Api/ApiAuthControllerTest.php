@@ -24,6 +24,7 @@ class ApiAuthControllerTest extends TestCase
         $this->app = $this->createApplication();
         $this->container = $this->app->getContainer();
         $this->migrate();
+        Auth::logout();
     }
 
     public function testThatApiRegistrationWorks()
@@ -98,6 +99,66 @@ class ApiAuthControllerTest extends TestCase
         $expected = json_encode($expected);
 
         $this->assertFalse($userExists);
+        $this->assertEquals($expected, $response->getBody());
+    }
+
+    public function testThatApiLoginWokrs()
+    {
+        $this->register();
+        Auth::logout();
+
+        $request = $this->newRequest([
+            'uri' => 'api/login',
+            'method' => 'post',
+            'content_type' => 'application/json'
+        ], $this->params);
+
+        $response = ($this->app)($request, new Response());
+
+        $this->assertTrue(Auth::check());
+
+        $signer = new Sha256();
+        $key = Config::get('jwtKey');
+
+        $token = (string) (new Builder)
+            ->set('id', Auth::user()->id)
+            ->sign($signer, $key)
+            ->getToken();
+
+        $expected = [
+            'token' => $token,
+            'status' => 'success',
+            'code' => 200
+        ];
+
+        $expected = json_encode($expected);
+
+        $this->assertEquals($expected, $response->getBody());
+    }
+
+    public function testThatWrongDataWhileLoginWillReturnFailedStatus()
+    {
+        $this->register();
+        Auth::logout();
+
+        $params = array_merge($this->params, ['password' => 'ddd']);
+
+        $request = $this->newRequest([
+            'uri' => 'api/login',
+            'method' => 'post',
+            'content_type' => 'application/json'
+        ], $params);
+
+        $response = ($this->app)($request, new Response());
+
+        $this->assertFalse(Auth::check());
+
+        $expected = [
+            'status' => 'fail',
+            'code' => 301 // TODO: change code
+        ];
+        $expected = json_encode($expected);
+
         $this->assertEquals($expected, $response->getBody());
     }
 }

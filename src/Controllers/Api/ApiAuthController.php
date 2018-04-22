@@ -44,4 +44,24 @@ class ApiAuthController extends Controller
             'code' => 200
         ]);
     }
+
+    public function login($request, $response)
+    {
+        $params = $request->getParsedBody();
+
+        if (!Auth::attempt($params['email'], $params['password'])) {
+            return $response->WithJson([
+                'status' => 'fail',
+                'code' => 301
+            ]);
+        }
+
+        $token = Auth::getToken();
+
+        return $response->WithJson([
+            'token' => $token,
+            'status' => 'success',
+            'code' => 200
+        ]);
+    }
 }
