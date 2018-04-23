@@ -14,14 +14,19 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\Uri;
 
+use dominx99\school\Models\User;
+
 trait Manager
 {
-    /**
-     * Function which has to call function which will set up config of App
-     */
-    public function configTesting()
+    protected $app;
+    protected $container;
+
+    public function create()
     {
         Config::set('environment', 'testing');
+        $this->app = $this->createApplication();
+        $this->container = $this->app->getContainer();
+        $this->migrate();
     }
 
     /**
@@ -30,8 +35,6 @@ trait Manager
      */
     public function migrate()
     {
-        $this->configTesting();
-
         $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'phinx.yml';
         $file = file_get_contents($path);
         $configArray = Yaml::parse($file);
@@ -39,7 +42,6 @@ trait Manager
         $config = new PhinxConfig($configArray);
         $manager = new PhinxManager($config, new StringInput(' '), new NullOutput());
 
-        Capsule::init();
         $manager->migrate('testing');
     }
 
@@ -49,8 +51,6 @@ trait Manager
      */
     public function createApplication()
     {
-        $this->configTesting();
-
         return (new App)->boot();
     }
 

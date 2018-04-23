@@ -11,7 +11,7 @@ class Users extends Migration
             $table->increments('id');
             $table->string('email');
             $table->string('name');
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }

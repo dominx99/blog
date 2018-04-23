@@ -19,12 +19,9 @@ class AuthControllerTest extends TestCase
 {
     use Manager;
 
-    protected $app;
-
     protected function setUp()
     {
-        $this->app = $this->createApplication();
-        $this->migrate();
+        $this->create();
         Auth::logout();
     }
 

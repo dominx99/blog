@@ -16,9 +16,7 @@ class App
     {
         $settings = require __DIR__ . '/bootstrap/settings.php';
         $app = new \Slim\App($settings);
-
-        $capsule = Capsule::init();
-
+        
         require __DIR__ . '/bootstrap/dependency.php';
         require __DIR__ . '/routes/web.php';
         require __DIR__ . '/routes/api.php';

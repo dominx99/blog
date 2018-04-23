@@ -1,6 +1,15 @@
 <?php
 
+use Overtrue\Socialite\SocialiteManager;
+use Dotenv\Dotenv;
+use dominx99\school\Capsule;
+use dominx99\school\Config;
+
+(new Dotenv(__DIR__ . '/../../'))->load();
+
 $container = $app->getContainer();
+
+$capsule = Capsule::init();
 
 $container['db'] = function () use ($capsule) {
     return $capsule;
@@ -32,4 +41,35 @@ $container['AuthController'] = function ($container) {
 
 $container['ApiAuthController'] = function ($container) {
     return new \dominx99\school\Controllers\Api\ApiAuthController($container);
+};
+
+$container['SocialiteController'] = function ($container) {
+    return new \dominx99\school\Controllers\SocialiteController($container);
+};
+
+$container['socialite'] = function ($container) {
+    $prefix = 'PRODUCTION_';
+
+    if (Config::get('environment', 'testing')) {
+        $prefix = 'TESTING_';
+    }
+
+    $config = [
+        'google' => [
+            'client_id'     => $_ENV[$prefix . 'GOOGLE_CLIENT_ID'],
+            'client_secret' => $_ENV[$prefix . 'GOOGLE_SECRET'],
+            'redirect'      => $_ENV[$prefix . 'GOOGLE_REDIRECT']
+        ],
+        'github' => [
+            'client_id'     => $_ENV[$prefix . 'GITHUB_CLIENT_ID'],
+            'client_secret' => $_ENV[$prefix . 'GITHUB_SECRET'],
+            'redirect'      => $_ENV[$prefix . 'GITHUB_REDIRECT']
+        ]
+    ];
+
+    return $socialite = new SocialiteManager($config);
+};
+
+$container['avaibleProviders'] = function () {
+    return ['google', 'github'];
 };

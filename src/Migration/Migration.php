@@ -22,7 +22,7 @@ class Migration extends AbstractMigration
      */
     public function init()
     {
-        $this->capsule = Capsule::init();
+        $this->capsule = Capsule::getCapsule() ? Capsule::getCapsule() : Capsule::init();
         $this->schema = $this->capsule->schema();
     }
 }

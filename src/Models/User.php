@@ -22,4 +22,14 @@ class User extends Model
         'name',
         'password'
     ];
+
+    /**
+     * @return dominx99\Models\User
+     * Method that returns instance of SocialProvider depends on user
+     * In addition: this is relation in database between those 2 models
+     */
+    public function socialProviders()
+    {
+        return $this->hasMany(SocialProvider::class);
+    }
 }

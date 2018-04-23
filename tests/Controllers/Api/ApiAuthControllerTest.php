@@ -16,14 +16,9 @@ class ApiAuthControllerTest extends TestCase
 {
     use Manager;
 
-    protected $app;
-    protected $container;
-
     public function setUp()
     {
-        $this->app = $this->createApplication();
-        $this->container = $this->app->getContainer();
-        $this->migrate();
+        $this->create();
         Auth::logout();
     }
 

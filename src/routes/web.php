@@ -22,6 +22,9 @@ $app->group('/', function () use ($app) {
 
     $app->get('login', 'AuthController:loginForm')->setName('login');
     $app->post('login', 'AuthController:login');
+
+    $app->get('auth/{provider}', 'SocialiteController:auth');
+    $app->get('redirect/{provider}', 'SocialiteController:handle');
 })->add(new \dominx99\school\Middleware\GuestMiddleware($container));
 
 /**

@@ -26,4 +26,9 @@ class Capsule
 
         return self::$capsule = $capsule;
     }
+
+    public static function getCapsule()
+    {
+        return self::$capsule;
+    }
 }
