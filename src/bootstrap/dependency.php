@@ -5,7 +5,9 @@ use Dotenv\Dotenv;
 use dominx99\school\Capsule;
 use dominx99\school\Config;
 
-(new Dotenv(__DIR__ . '/../../'))->load();
+if (Config::get('environment') != 'testing') {
+    (new Dotenv(__DIR__ . '/../../'))->load();
+}
 
 $container = $app->getContainer();
 
