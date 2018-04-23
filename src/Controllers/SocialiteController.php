@@ -7,7 +7,9 @@ use dominx99\school\Models\SocialProvider;
 use dominx99\school\Models\User;
 
 /**
- * @property $avaibleProviders
+ * @property array $avaibleProviders
+ * @property object $socialite
+ * @property object $router
  */
 class SocialiteController extends Controller
 {

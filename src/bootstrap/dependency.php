@@ -49,10 +49,10 @@ $container['SocialiteController'] = function ($container) {
     return new \dominx99\school\Controllers\SocialiteController($container);
 };
 
-$container['socialite'] = function ($container) {
+$container['socialite'] = function () {
     $prefix = 'PRODUCTION_';
 
-    if (Config::get('environment', 'testing')) {
+    if (Config::get('environment') == 'testing') {
         $prefix = 'TESTING_';
     }
 
@@ -69,7 +69,7 @@ $container['socialite'] = function ($container) {
         ]
     ];
 
-    return $socialite = new SocialiteManager($config);
+    return SocialiteManager($config);
 };
 
 $container['avaibleProviders'] = function () {

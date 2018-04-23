@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method create(array $params)
+ * @method firstOrCreate(array $params)
  */
 class User extends Model
 {
