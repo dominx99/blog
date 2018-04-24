@@ -5,7 +5,6 @@ namespace dominx99\school\Middleware;
 use PHPUnit\Framework\TestCase;
 use Slim\Http\Response;
 use dominx99\school\Manager;
-use dominx99\school\Auth\Auth;
 
 class GuestMiddlewareTest extends TestCase
 {
@@ -33,7 +32,7 @@ class GuestMiddlewareTest extends TestCase
         $this->assertFalse(empty($response->getHeader('Location')));
         $this->assertSame($this->container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
 
-        Auth::logout();
+        $this->auth->logout();
 
         $response = $this->app->process($request, new Response());
         $this->assertTrue(empty($response->getHeader('Location')));

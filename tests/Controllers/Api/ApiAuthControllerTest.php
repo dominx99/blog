@@ -19,12 +19,12 @@ class ApiAuthControllerTest extends TestCase
     public function setUp()
     {
         $this->create();
-        Auth::logout();
+        $this->auth->logout();
     }
 
     public function testThatApiRegistrationWorks()
     {
-        Auth::logout();
+        $this->auth->logout();
 
         $params = [
             'email' => 'ddd@ddd.com',
@@ -44,14 +44,14 @@ class ApiAuthControllerTest extends TestCase
         $userExists = User::where('email', $params['email'])->exists();
 
         $this->assertTrue($userExists);
-        $this->assertTrue(Auth::check());
-        $this->assertEquals(Auth::user()->email, $params['email']);
+        $this->assertTrue($this->auth->check());
+        $this->assertEquals($this->auth->user()->email, $params['email']);
 
         $signer = new Sha256();
         $key = Config::get('jwtKey');
 
         $token = (string) (new Builder)
-            ->set('id', Auth::user()->id)
+            ->set('id', $this->auth->user()->id)
             ->sign($signer, $key)
             ->getToken();
 
@@ -61,7 +61,7 @@ class ApiAuthControllerTest extends TestCase
             'code' => 200
         ]);
 
-        $authToken = Auth::getToken();
+        $authToken = $this->auth->getToken();
 
         $this->assertEquals($token, $authToken);
         $this->assertEquals($expected, $response->getBody());
@@ -100,7 +100,7 @@ class ApiAuthControllerTest extends TestCase
     public function testThatApiLoginWokrs()
     {
         $this->register();
-        Auth::logout();
+        $this->auth->logout();
 
         $request = $this->newRequest([
             'uri' => 'api/login',
@@ -110,13 +110,13 @@ class ApiAuthControllerTest extends TestCase
 
         $response = ($this->app)($request, new Response());
 
-        $this->assertTrue(Auth::check());
+        $this->assertTrue($this->auth->check());
 
         $signer = new Sha256();
         $key = Config::get('jwtKey');
 
         $token = (string) (new Builder)
-            ->set('id', Auth::user()->id)
+            ->set('id' ,$this->auth->user()->id)
             ->sign($signer, $key)
             ->getToken();
 
@@ -134,7 +134,7 @@ class ApiAuthControllerTest extends TestCase
     public function testThatWrongDataWhileLoginWillReturnFailedStatus()
     {
         $this->register();
-        Auth::logout();
+        $this->auth->logout();
 
         $params = array_merge($this->params, ['password' => 'ddd']);
 
@@ -146,7 +146,7 @@ class ApiAuthControllerTest extends TestCase
 
         $response = ($this->app)($request, new Response());
 
-        $this->assertFalse(Auth::check());
+        $this->assertFalse($this->auth->check());
 
         $expected = [
             'status' => 'fail',

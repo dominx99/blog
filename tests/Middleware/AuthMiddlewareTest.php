@@ -21,7 +21,7 @@ class AuthMiddlewareTest extends TestCase
      */
     public function testThatGuestCannotAccessRoutesProtectedByAuthMiddleware($route)
     {
-        Auth::logout();
+        $this->auth->logout();
 
         $request = $this->newRequest([
             'uri' => $route,

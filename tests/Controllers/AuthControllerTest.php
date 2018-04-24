@@ -22,7 +22,7 @@ class AuthControllerTest extends TestCase
     protected function setUp()
     {
         $this->create();
-        Auth::logout();
+        $this->auth->logout();
     }
 
     public function testThatRegisterWorks()
@@ -34,8 +34,8 @@ class AuthControllerTest extends TestCase
 
         $user = User::where('email', 'ddd@ddd.com')->first();
 
-        $this->assertTrue(Auth::check());
-        $this->assertEquals(Auth::user()->email, $this->params['email']);
+        $this->assertTrue($this->auth->check());
+        $this->assertEquals($this->auth->user()->email, $this->params['email']);
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertFalse(empty($user));
         $this->assertSame($container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
@@ -75,7 +75,7 @@ class AuthControllerTest extends TestCase
         $container = $this->app->getContainer();
 
         $this->register();
-        Auth::logout();
+        $this->auth->logout();
 
         $request = $this->newRequest([
             'uri' => '/login',
@@ -86,8 +86,8 @@ class AuthControllerTest extends TestCase
 
         $user = User::where('email', $this->params['email'])->first();
 
-        $this->assertTrue(Auth::check());
-        $this->assertEquals(Auth::user(), $user);
+        $this->assertTrue($this->auth->check());
+        $this->assertEquals($this->auth->user(), $user);
         $this->assertSame($container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
     }
 
@@ -101,7 +101,7 @@ class AuthControllerTest extends TestCase
         $container = $this->app->getContainer();
 
         $this->register();
-        Auth::logout();
+        $this->auth->logout();
 
         $params = [
             'email' => $email,
@@ -115,7 +115,7 @@ class AuthControllerTest extends TestCase
 
         $response = $app($request, new Response());
 
-        $this->assertFalse(Auth::check());
+        $this->assertFalse($this->auth->check());
         $this->assertSame($container->router->pathFor('login'), $response->getHeader('Location')[0]);
     }
 

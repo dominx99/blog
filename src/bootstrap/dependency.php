@@ -37,6 +37,10 @@ $container['validator'] = function () {
     return new \dominx99\school\Validation\Validator;
 };
 
+$container['auth'] = function () {
+    return new \dominx99\school\Auth\Auth;
+};
+
 $container['AuthController'] = function ($container) {
     return new \dominx99\school\Controllers\AuthController($container);
 };

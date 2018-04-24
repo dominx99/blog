@@ -9,6 +9,7 @@ use dominx99\school\Auth\Auth;
 
 /**
  * @property object validator
+ * @property object auth
  */
 class ApiAuthController extends Controller
 {
@@ -35,8 +36,8 @@ class ApiAuthController extends Controller
             'password' => password_hash($params['password'], PASSWORD_DEFAULT)
         ]);
 
-        Auth::authorize($user->id);
-        $token = Auth::getToken();
+        $this->auth->authorize($user->id);
+        $token = $this->auth->getToken();
 
         return $response->WithJson([
             'token' => $token,
@@ -49,14 +50,14 @@ class ApiAuthController extends Controller
     {
         $params = $request->getParsedBody();
 
-        if (!Auth::attempt($params['email'], $params['password'])) {
+        if (!$this->auth->attempt($params['email'], $params['password'])) {
             return $response->WithJson([
                 'status' => 'fail',
                 'code' => 301
             ]);
         }
 
-        $token = Auth::getToken();
+        $token = $this->auth->getToken();
 
         return $response->WithJson([
             'token' => $token,

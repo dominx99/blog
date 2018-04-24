@@ -29,6 +29,11 @@ trait Manager
         $this->migrate();
     }
 
+    public function __get($property)
+    {
+        return $this->container->{$property};
+    }
+
     /**
      * Function which has to migrate init Capsule as sqlite in memory
      * and migrate database

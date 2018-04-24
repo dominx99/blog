@@ -13,7 +13,7 @@ class Auth
      * @param int $user user id
      * Sets user session
      */
-    public static function authorize($user):void
+    public function authorize($user):void
     {
         $_SESSION['user'] = $user;
     }
@@ -21,7 +21,7 @@ class Auth
     /**
      * Removes User session
      */
-    public static function logout():void
+    public function logout():void
     {
         unset($_SESSION['user']);
     }
@@ -29,7 +29,7 @@ class Auth
     /**
      * @return boolean true if user is logged in, session exists; false when session does not exist
      */
-    public static function check():bool
+    public function check():bool
     {
         return isset($_SESSION['user']);
     }
@@ -40,7 +40,7 @@ class Auth
      * @return boolean true if user exists, false if user does not exist
      * In addition this method automatically auth user
      */
-    public static function attempt($email, $password):bool
+    public function attempt($email, $password):bool
     {
         if (!$user = User::where('email', $email)->first()) {
             return false;
@@ -57,7 +57,7 @@ class Auth
     /**
      * @return User|false returns User model instance which is logged in
      */
-    public static function user()
+    public function user()
     {
         if (isset($_SESSION['user'])) {
             return User::find($_SESSION['user']);
@@ -69,13 +69,13 @@ class Auth
      * @return string $token
      * Function generates token from authorized User Id
      */
-    public static function getToken():string
+    public function getToken():string
     {
         $key = Config::get('jwtKey');
         $signer = new Sha256();
 
         $token = (string) (new Builder)
-            ->set('id', static::user()->id)
+            ->set('id', $this->user()->id)
             ->sign($signer, $key)
             ->getToken();
 

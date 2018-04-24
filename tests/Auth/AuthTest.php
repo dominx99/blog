@@ -11,6 +11,11 @@ class AuthTest extends TestCase
 {
     use Manager;
 
+    public function __get($property)
+    {
+        return $this->container->{$property};
+    }
+
     public function setUp()
     {
         if(!isset($_SESSION) && !headers_sent()) {
@@ -22,24 +27,24 @@ class AuthTest extends TestCase
 
     public function testThatAuthSetsSession()
     {
-        Auth::authorize(5);
+        $this->auth->authorize(5);
         $this->assertTrue(isset($_SESSION['user']));
     }
 
     public function testThatLogoutRemovesSession()
     {
-        Auth::authorize(5);
-        Auth::logout();
-        $this->assertFalse(Auth::user());
+        $this->auth->authorize(5);
+        $this->auth->logout();
+        $this->assertFalse($this->auth->user());
     }
 
     public function testThaCheckMethodWorks()
     {
-        Auth::authorize(5);
-        $this->assertTrue(Auth::check());
+        $this->auth->authorize(5);
+        $this->assertTrue($this->auth->check());
 
-        Auth::logout();
-        $this->assertFalse(Auth::check());
+        $this->auth->logout();
+        $this->assertFalse($this->auth->check());
     }
 
     public function testThatAttemptionToLoginWorks()
@@ -50,11 +55,11 @@ class AuthTest extends TestCase
             'password' => password_hash('dddddd', PASSWORD_DEFAULT)
         ]);
 
-        $result = Auth::attempt('ddd@ddd.com', 'dddddd');
+        $result = $this->auth->attempt('ddd@ddd.com', 'dddddd');
 
         $this->assertTrue($result);
-        $this->assertTrue(Auth::check());
-        $this->assertEquals($user->name, Auth::user()->name);
+        $this->assertTrue($this->auth->check());
+        $this->assertEquals($user->name, $this->auth->user()->name);
     }
 
     /**
@@ -68,7 +73,7 @@ class AuthTest extends TestCase
             'password' => password_hash('dddddd', PASSWORD_DEFAULT)
         ]);
 
-        $result = Auth::attempt($email, $password);
+        $result = $this->auth->attempt($email, $password);
 
         $this->assertFalse($result);
     }
