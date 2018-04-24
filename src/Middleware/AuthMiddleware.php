@@ -2,8 +2,10 @@
 
 namespace dominx99\school\Middleware;
 
-use dominx99\school\Auth\Auth;
-
+/**
+ * @property object router
+ * @property object auth
+ */
 class AuthMiddleware extends Middleware
 {
     public function __invoke($request, $response, $next)

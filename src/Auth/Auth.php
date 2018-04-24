@@ -4,8 +4,8 @@ namespace dominx99\school\Auth;
 
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
-use dominx99\school\Models\User;
 use dominx99\school\Config;
+use dominx99\school\Models\User;
 
 class Auth
 {

@@ -2,8 +2,6 @@
 
 namespace dominx99\school\Middleware;
 
-use dominx99\school\Auth\Auth;
-
 /**
  * @property object router
  * @property object auth

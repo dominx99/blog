@@ -6,12 +6,12 @@ use Respect\Validation\Validator as v;
 use Slim\Http\Response;
 
 use dominx99\school\Models\User;
-use dominx99\school\Auth\Auth;
 
 /**
  * @property object $validator
  * @property object $router
  * @property object $view
+ * @property object $auth
  */
 class AuthController extends Controller
 {
