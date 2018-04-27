@@ -48,6 +48,9 @@
         "fzaninotto/faker": "^1.7"
     },
     "scripts": {
+        "post-install-cmd": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env'); \""
+        ],
         "test": [
             "phpunit",
             "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"

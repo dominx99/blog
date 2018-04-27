@@ -13,14 +13,14 @@ class Capsule
     protected static $capsule;
 
     /**
-     * Function which has to create instance of Capsule according to Config
+     * Function which has to create instance of Capsule according to .env file
      */
     public static function init()
     {
         $settings = require('bootstrap/settings.php');
 
         $capsule = new Manager;
-        $capsule->addConnection($settings['settings']['db'][Config::get('environment')]);
+        $capsule->addConnection($settings['settings']['db'][getenv('APP_ENV')]);
         $capsule->setAsGlobal();
         $capsule->bootEloquent();
 

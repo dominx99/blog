@@ -4,7 +4,6 @@ namespace dominx99\school\Migration;
 
 use Phinx\Migration\AbstractMigration;
 use dominx99\school\Capsule;
-use dominx99\school\Config;
 
 class Migration extends AbstractMigration
 {

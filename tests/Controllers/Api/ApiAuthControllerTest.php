@@ -10,7 +10,6 @@ use Slim\App;
 use dominx99\school\DatabaseTrait;
 use dominx99\school\Models\User;
 use dominx99\school\Auth\Auth;
-use dominx99\school\Config;
 
 class ApiAuthControllerTest extends BaseTestCase
 {
@@ -48,7 +47,7 @@ class ApiAuthControllerTest extends BaseTestCase
         $this->assertEquals($this->container->auth->user()->email, $params['email']);
 
         $signer = new Sha256();
-        $key = Config::get('jwtKey');
+        $key = getenv('JWT_KEY');
 
         $token = (string) (new Builder)
             ->set('id', $this->container->auth->user()->id)
@@ -110,7 +109,7 @@ class ApiAuthControllerTest extends BaseTestCase
         $this->assertTrue($this->container->auth->check());
 
         $signer = new Sha256();
-        $key = Config::get('jwtKey');
+        $key = getenv('JWT_KEY');
 
         $token = (string) (new Builder)
             ->set('id' ,$this->container->auth->user()->id)
