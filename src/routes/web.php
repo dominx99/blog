@@ -6,7 +6,6 @@ use Slim\Http\Response;
  * Turn on Csrf Protection when environment is not "testing"
  */
 if (getenv('APP_ENV') != 'development') {
-    var_dump('here');
     $app->add($container->get('csrf'));
 }
 
