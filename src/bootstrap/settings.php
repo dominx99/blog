@@ -1,11 +1,11 @@
 <?php
 
 // Define root path
-defined('ROOT') ?: define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
+$root = dirname(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 
 // Load .env file
-if (file_exists(ROOT . '.env')) {
-    $dotenv = new Dotenv\Dotenv(ROOT);
+if (file_exists($root . '.env')) {
+    $dotenv = new Dotenv\Dotenv($root);
     $dotenv->load();
 }
 
