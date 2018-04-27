@@ -64,7 +64,7 @@ $container['socialite'] = function () {
         ]
     ];
 
-    return SocialiteManager($config);
+    return new SocialiteManager($config);
 };
 
 $container['avaibleProviders'] = function () {

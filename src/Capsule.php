@@ -20,7 +20,17 @@ class Capsule
         $settings = require('bootstrap/settings.php');
 
         $capsule = new Manager;
-        $capsule->addConnection($settings['settings']['db'][getenv('APP_ENV')]);
+
+        if (PHP_SAPI == 'cli') {
+            $capsule->addConnection([
+                'driver' => 'sqlite',
+                'database' => ':memory:',
+                'prefix' => ''
+            ]);
+        } else {
+            $capsule->addConnection($settings['settings']['db']);
+        }
+
         $capsule->setAsGlobal();
         $capsule->bootEloquent();
 
