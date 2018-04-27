@@ -1,8 +1,7 @@
 <?php
 
 // Define root path
-defined('DS') ?: define('DS', DIRECTORY_SEPARATOR);
-defined('ROOT') ?: define('ROOT', dirname(__DIR__) . DS . '..' . DS);
+defined('ROOT') ?: define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
 
 // Load .env file
 if (file_exists(ROOT . '.env')) {
