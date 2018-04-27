@@ -22,7 +22,7 @@ class AuthControllerTest extends BaseTestCase
         $params = [
             'email' => 'ddd@ddd.com',
             'name' => 'ddd',
-            'password' => 'dddddd' // password is too short (6, 16)
+            'password' => 'dddddd'
         ];
 
         $request = $this->newRequest([

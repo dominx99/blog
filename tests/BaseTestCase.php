@@ -65,6 +65,16 @@ class BaseTestCase extends TestCase
         $this->container = $this->app->getContainer();
     }
 
+    public function runApp($method, $uri)
+    {
+        $request = $this->newRequest([
+            'method' => $method,
+            'uri' => $uri
+        ]);
+
+        return $this->app->process($request, new Response());
+    }
+
     /**
      * @return \Slim\Http\Request
      * Function that creates and returns request created from params
