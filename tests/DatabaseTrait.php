@@ -49,20 +49,4 @@ trait DatabaseTrait
         $app = new PhinxApplication();
         $app->doRun(new StringInput("rollback -e testing -f"), new NullOutput());
     }
-
-    public function register()
-    {
-        $this->params = [
-            'email' => 'ddd@ddd.com',
-            'name' => 'ddd',
-            'password' => 'dddddd'
-        ];
-
-        $request = $this->newRequest([
-            'uri' => '/register',
-            'method' => 'post',
-        ], $this->params);
-
-        return $response = ($this->app)($request, new Response());
-    }
 }

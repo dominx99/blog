@@ -15,16 +15,8 @@ class ApiAuthControllerTest extends BaseTestCase
 {
     use DatabaseTrait;
 
-    public function setUp()
-    {
-        parent::setUp();
-        $this->container->auth->logout();
-    }
-
     public function testThatApiRegistrationWorks()
     {
-        $this->container->auth->logout();
-
         $params = [
             'email' => 'ddd@ddd.com',
             'name' => 'ddd',

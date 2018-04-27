@@ -50,6 +50,7 @@ class BaseTestCase extends TestCase
         if (isset($traits[DatabaseTrait::class])) {
             $this->rollback();
         }
+        $this->container->auth->logout();
         unset($this->app);
         parent::tearDown();
     }

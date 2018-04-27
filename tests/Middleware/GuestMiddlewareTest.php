@@ -15,7 +15,7 @@ class GuestMiddlewareTest extends BaseTestCase
      */
     public function testThatUserCannotAccessRoutesProtectedByGuestMiddleware($route)
     {
-        $this->register();
+        $this->container->auth->authorize(1);
 
         $request = $this->newRequest([
             'uri' => $route,

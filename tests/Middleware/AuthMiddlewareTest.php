@@ -16,8 +16,6 @@ class AuthMiddlewareTest extends BaseTestCase
      */
     public function testThatGuestCannotAccessRoutesProtectedByAuthMiddleware($route)
     {
-        $this->container->auth->logout();
-
         $request = $this->newRequest([
             'uri' => $route,
             'method' => 'get'
@@ -28,7 +26,7 @@ class AuthMiddlewareTest extends BaseTestCase
         $this->assertFalse(empty($response->getHeader('Location')));
         $this->assertSame($this->container->router->pathFor('login'), $response->getHeader('Location')[0]);
 
-        $this->register();
+        $this->container->auth->authorize(1);
 
         $response = $this->app->process($request, new Response());
         $this->assertTrue(empty($response->getHeader('Location')));

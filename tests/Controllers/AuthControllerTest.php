@@ -17,12 +17,6 @@ class AuthControllerTest extends BaseTestCase
 {
     use DatabaseTrait;
 
-    public function tearDown()
-    {
-        $this->container->auth->logout();
-        parent::tearDown();
-    }
-
     public function testThatRegisterWorks()
     {
         $params = [
