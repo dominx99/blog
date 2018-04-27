@@ -3,11 +3,6 @@
 use Overtrue\Socialite\SocialiteManager;
 use Dotenv\Dotenv;
 use dominx99\school\Capsule;
-use dominx99\school\Config;
-
-if (Config::get('environment') != 'testing') {
-    (new Dotenv(__DIR__ . '/../../'))->load();
-}
 
 $container = $app->getContainer();
 
@@ -54,11 +49,7 @@ $container['SocialiteController'] = function ($container) {
 };
 
 $container['socialite'] = function () {
-    $prefix = 'PRODUCTION_';
-
-    if (Config::get('environment') == 'testing') {
-        $prefix = 'TESTING_';
-    }
+    $prefix = strtoupper(getenv('APP_ENV')) . '_';
 
     $config = [
         'google' => [

@@ -10,7 +10,6 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\Uri;
 use dominx99\school\App;
-use dominx99\school\Config;
 
 class BaseTestCase extends TestCase
 {
@@ -36,7 +35,6 @@ class BaseTestCase extends TestCase
             session_start();
         }
 
-        Config::set('environment', 'testing');
         $this->createApplication();
 
         $traits = array_flip(class_uses_recursive(static::class));
@@ -62,7 +60,7 @@ class BaseTestCase extends TestCase
      */
     public function createApplication()
     {
-        $this->app = (new App)->boot();
+        $this->app = (new App())->boot();
         $this->container = $this->app->getContainer();
     }
 

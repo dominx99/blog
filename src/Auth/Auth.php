@@ -4,7 +4,6 @@ namespace dominx99\school\Auth;
 
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
-use dominx99\school\Config;
 use dominx99\school\Models\User;
 
 class Auth
@@ -71,7 +70,7 @@ class Auth
      */
     public function getToken():string
     {
-        $key = Config::get('jwtKey');
+        $key = getenv('JWT_KEY');
         $signer = new Sha256();
 
         $token = (string) (new Builder)

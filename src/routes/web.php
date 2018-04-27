@@ -1,11 +1,9 @@
 <?php
 
-use dominx99\school\Config;
-
 /**
  * Turn on Csrf Protection when environment is not "testing"
  */
-if (Config::get('environment') != 'testing') {
+if (getenv('APP_ENV') != 'testing') {
     $app->add($container->get('csrf'));
 }
 
