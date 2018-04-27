@@ -13,6 +13,17 @@ use dominx99\school\Models\User;
 
 trait DatabaseTrait
 {
+    protected $user;
+
+    public function setUserData()
+    {
+        $this->user = [
+            'email' => 'aaa@aaa.com',
+            'name' => 'aaa',
+            'password' => 'abcdef'
+        ];
+    }
+
     /**
      * Function which has to migrate init Capsule as sqlite in memory
      * and migrate database
@@ -30,6 +41,7 @@ trait DatabaseTrait
         $manager = new PhinxManager($config, new StringInput(' '), new NullOutput());
 
         $manager->migrate('testing');
+        $manager->seed('testing');
     }
 
     protected function rollback()

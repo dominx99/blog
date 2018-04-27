@@ -99,14 +99,11 @@ class ApiAuthControllerTest extends BaseTestCase
 
     public function testThatApiLoginWokrs()
     {
-        $this->register();
-        $this->container->auth->logout();
-
         $request = $this->newRequest([
             'uri' => 'api/login',
             'method' => 'post',
             'content_type' => 'application/json'
-        ], $this->params);
+        ], $this->user);
 
         $response = ($this->app)($request, new Response());
 
@@ -133,16 +130,13 @@ class ApiAuthControllerTest extends BaseTestCase
 
     public function testThatWrongDataWhileLoginWillReturnFailedStatus()
     {
-        $this->register();
-        $this->container->auth->logout();
-
-        $params = array_merge($this->params, ['password' => 'ddd']);
+        $this->user = array_merge($this->user, ['password' => 'aaa']);
 
         $request = $this->newRequest([
             'uri' => 'api/login',
             'method' => 'post',
             'content_type' => 'application/json'
-        ], $params);
+        ], $this->user);
 
         $response = ($this->app)($request, new Response());
 

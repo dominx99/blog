@@ -11,14 +11,6 @@ class AuthTest extends BaseTestCase
 {
     use DatabaseTrait;
 
-    public function setUp()
-    {
-        parent::setUp();
-        if(!isset($_SESSION) && !headers_sent()) {
-           session_start();
-       }
-    }
-
     public function testThatAuthSetsSession()
     {
         $this->container->auth->authorize(5);

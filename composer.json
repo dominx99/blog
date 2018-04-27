@@ -44,7 +44,8 @@
         "lcobucci/jwt": "^3.2",
         "slim/twig-view": "^2.3",
         "overtrue/socialite": "^2.0",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "fzaninotto/faker": "^1.7"
     },
     "scripts": {
         "test": [

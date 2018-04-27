@@ -31,12 +31,18 @@ class BaseTestCase extends TestCase
     public function setUp()
     {
         parent::setUp();
+
+        if(!isset($_SESSION) && !headers_sent()) {
+            session_start();
+        }
+
         Config::set('environment', 'testing');
         $this->createApplication();
 
         $traits = array_flip(class_uses_recursive(static::class));
         if (isset($traits[DatabaseTrait::class])) {
             $this->migrate();
+            $this->setUserData();
         }
     }
 
