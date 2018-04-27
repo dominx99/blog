@@ -2,27 +2,27 @@
 
 namespace dominx99\school\Controllers;
 
-use PHPUnit\Framework\TestCase;
+use dominx99\school\BaseTestCase;
 use Slim\Http\Environment;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Psr\Http\Message\ServerRequestInterface;
 use dominx99\school\App;
-use dominx99\school\Manager;
+use dominx99\school\DatabaseTrait;
 use dominx99\school\Models\User;
 use dominx99\school\Auth\Auth;
 use dominx99\school\Csrf\Csrf;
 
 session_start();
 
-class AuthControllerTest extends TestCase
+class AuthControllerTest extends BaseTestCase
 {
-    use Manager;
+    use DatabaseTrait;
 
-    protected function setUp()
+    public function setUp()
     {
-        $this->create();
-        $this->auth->logout();
+        parent::setUp();
+        $this->container->auth->logout();
     }
 
     public function testThatRegisterWorks()
@@ -34,8 +34,8 @@ class AuthControllerTest extends TestCase
 
         $user = User::where('email', 'ddd@ddd.com')->first();
 
-        $this->assertTrue($this->auth->check());
-        $this->assertEquals($this->auth->user()->email, $this->params['email']);
+        $this->assertTrue($this->container->auth->check());
+        $this->assertEquals($this->container->auth->user()->email, $this->params['email']);
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertFalse(empty($user));
         $this->assertSame($container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
@@ -75,7 +75,7 @@ class AuthControllerTest extends TestCase
         $container = $this->app->getContainer();
 
         $this->register();
-        $this->auth->logout();
+        $this->container->auth->logout();
 
         $request = $this->newRequest([
             'uri' => '/login',
@@ -86,8 +86,8 @@ class AuthControllerTest extends TestCase
 
         $user = User::where('email', $this->params['email'])->first();
 
-        $this->assertTrue($this->auth->check());
-        $this->assertEquals($this->auth->user(), $user);
+        $this->assertTrue($this->container->auth->check());
+        $this->assertEquals($this->container->auth->user(), $user);
         $this->assertSame($container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
     }
 
@@ -101,7 +101,7 @@ class AuthControllerTest extends TestCase
         $container = $this->app->getContainer();
 
         $this->register();
-        $this->auth->logout();
+        $this->container->auth->logout();
 
         $params = [
             'email' => $email,
@@ -115,7 +115,7 @@ class AuthControllerTest extends TestCase
 
         $response = $app($request, new Response());
 
-        $this->assertFalse($this->auth->check());
+        $this->assertFalse($this->container->auth->check());
         $this->assertSame($container->router->pathFor('login'), $response->getHeader('Location')[0]);
     }
 

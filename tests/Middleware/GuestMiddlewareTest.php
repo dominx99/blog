@@ -2,18 +2,13 @@
 
 namespace dominx99\school\Middleware;
 
-use PHPUnit\Framework\TestCase;
+use dominx99\school\BaseTestCase;
 use Slim\Http\Response;
-use dominx99\school\Manager;
+use dominx99\school\DatabaseTrait;
 
-class GuestMiddlewareTest extends TestCase
+class GuestMiddlewareTest extends BaseTestCase
 {
-    use Manager;
-
-    public function setUp()
-    {
-        $this->create();
-    }
+    use DatabaseTrait;
 
     /**
      * @dataProvider routesProvider
@@ -32,7 +27,7 @@ class GuestMiddlewareTest extends TestCase
         $this->assertFalse(empty($response->getHeader('Location')));
         $this->assertSame($this->container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
 
-        $this->auth->logout();
+        $this->container->auth->logout();
 
         $response = $this->app->process($request, new Response());
         $this->assertTrue(empty($response->getHeader('Location')));

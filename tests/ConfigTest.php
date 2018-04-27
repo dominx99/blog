@@ -4,7 +4,7 @@ namespace dominx99\school;
 
 use PHPUnit\Framework\TestCase;
 
-class ConfigTest extends TestCase
+class ConfigTest extends BaseTestCase
 {
     public function testThatEnvironmentIsNotEmptyWithSettingProperty()
     {

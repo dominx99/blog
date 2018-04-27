@@ -2,29 +2,29 @@
 
 namespace dominx99\school\Controllers\Api;
 
-use PHPUnit\Framework\TestCase;
+use dominx99\school\BaseTestCase;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Slim\Http\Response;
 use Slim\App;
-use dominx99\school\Manager;
+use dominx99\school\DatabaseTrait;
 use dominx99\school\Models\User;
 use dominx99\school\Auth\Auth;
 use dominx99\school\Config;
 
-class ApiAuthControllerTest extends TestCase
+class ApiAuthControllerTest extends BaseTestCase
 {
-    use Manager;
+    use DatabaseTrait;
 
     public function setUp()
     {
-        $this->create();
-        $this->auth->logout();
+        parent::setUp();
+        $this->container->auth->logout();
     }
 
     public function testThatApiRegistrationWorks()
     {
-        $this->auth->logout();
+        $this->container->auth->logout();
 
         $params = [
             'email' => 'ddd@ddd.com',
@@ -44,14 +44,14 @@ class ApiAuthControllerTest extends TestCase
         $userExists = User::where('email', $params['email'])->exists();
 
         $this->assertTrue($userExists);
-        $this->assertTrue($this->auth->check());
-        $this->assertEquals($this->auth->user()->email, $params['email']);
+        $this->assertTrue($this->container->auth->check());
+        $this->assertEquals($this->container->auth->user()->email, $params['email']);
 
         $signer = new Sha256();
         $key = Config::get('jwtKey');
 
         $token = (string) (new Builder)
-            ->set('id', $this->auth->user()->id)
+            ->set('id', $this->container->auth->user()->id)
             ->sign($signer, $key)
             ->getToken();
 
@@ -61,7 +61,7 @@ class ApiAuthControllerTest extends TestCase
             'code' => 200
         ]);
 
-        $authToken = $this->auth->getToken();
+        $authToken = $this->container->auth->getToken();
 
         $this->assertEquals($token, $authToken);
         $this->assertEquals($expected, $response->getBody());
@@ -100,7 +100,7 @@ class ApiAuthControllerTest extends TestCase
     public function testThatApiLoginWokrs()
     {
         $this->register();
-        $this->auth->logout();
+        $this->container->auth->logout();
 
         $request = $this->newRequest([
             'uri' => 'api/login',
@@ -110,13 +110,13 @@ class ApiAuthControllerTest extends TestCase
 
         $response = ($this->app)($request, new Response());
 
-        $this->assertTrue($this->auth->check());
+        $this->assertTrue($this->container->auth->check());
 
         $signer = new Sha256();
         $key = Config::get('jwtKey');
 
         $token = (string) (new Builder)
-            ->set('id' ,$this->auth->user()->id)
+            ->set('id' ,$this->container->auth->user()->id)
             ->sign($signer, $key)
             ->getToken();
 
@@ -134,7 +134,7 @@ class ApiAuthControllerTest extends TestCase
     public function testThatWrongDataWhileLoginWillReturnFailedStatus()
     {
         $this->register();
-        $this->auth->logout();
+        $this->container->auth->logout();
 
         $params = array_merge($this->params, ['password' => 'ddd']);
 
@@ -146,7 +146,7 @@ class ApiAuthControllerTest extends TestCase
 
         $response = ($this->app)($request, new Response());
 
-        $this->assertFalse($this->auth->check());
+        $this->assertFalse($this->container->auth->check());
 
         $expected = [
             'status' => 'fail',

@@ -2,49 +2,43 @@
 
 namespace dominx99\school\Auth;
 
-use PHPUnit\Framework\TestCase;
+use dominx99\school\BaseTestCase;
 use dominx99\school\App;
 use dominx99\school\Models\User;
-use dominx99\school\Manager;
+use dominx99\school\DatabaseTrait;
 
-class AuthTest extends TestCase
+class AuthTest extends BaseTestCase
 {
-    use Manager;
-
-    public function __get($property)
-    {
-        return $this->container->{$property};
-    }
+    use DatabaseTrait;
 
     public function setUp()
     {
+        parent::setUp();
         if(!isset($_SESSION) && !headers_sent()) {
            session_start();
        }
-
-       $this->create();
     }
 
     public function testThatAuthSetsSession()
     {
-        $this->auth->authorize(5);
+        $this->container->auth->authorize(5);
         $this->assertTrue(isset($_SESSION['user']));
     }
 
     public function testThatLogoutRemovesSession()
     {
-        $this->auth->authorize(5);
-        $this->auth->logout();
-        $this->assertFalse($this->auth->user());
+        $this->container->auth->authorize(5);
+        $this->container->auth->logout();
+        $this->assertFalse($this->container->auth->user());
     }
 
     public function testThaCheckMethodWorks()
     {
-        $this->auth->authorize(5);
-        $this->assertTrue($this->auth->check());
+        $this->container->auth->authorize(5);
+        $this->assertTrue($this->container->auth->check());
 
-        $this->auth->logout();
-        $this->assertFalse($this->auth->check());
+        $this->container->auth->logout();
+        $this->assertFalse($this->container->auth->check());
     }
 
     public function testThatAttemptionToLoginWorks()
@@ -55,11 +49,11 @@ class AuthTest extends TestCase
             'password' => password_hash('dddddd', PASSWORD_DEFAULT)
         ]);
 
-        $result = $this->auth->attempt('ddd@ddd.com', 'dddddd');
+        $result = $this->container->auth->attempt('ddd@ddd.com', 'dddddd');
 
         $this->assertTrue($result);
-        $this->assertTrue($this->auth->check());
-        $this->assertEquals($user->name, $this->auth->user()->name);
+        $this->assertTrue($this->container->auth->check());
+        $this->assertEquals($user->name, $this->container->auth->user()->name);
     }
 
     /**
@@ -73,7 +67,7 @@ class AuthTest extends TestCase
             'password' => password_hash('dddddd', PASSWORD_DEFAULT)
         ]);
 
-        $result = $this->auth->attempt($email, $password);
+        $result = $this->container->auth->attempt($email, $password);
 
         $this->assertFalse($result);
     }
