@@ -36,18 +36,6 @@ $container['auth'] = function () {
     return new \dominx99\school\Auth\Auth;
 };
 
-$container['AuthController'] = function ($container) {
-    return new \dominx99\school\Controllers\AuthController($container);
-};
-
-$container['ApiAuthController'] = function ($container) {
-    return new \dominx99\school\Controllers\Api\ApiAuthController($container);
-};
-
-$container['SocialiteController'] = function ($container) {
-    return new \dominx99\school\Controllers\SocialiteController($container);
-};
-
 $container['socialite'] = function () {
     $prefix = strtoupper(getenv('APP_ENV')) . '_';
 
@@ -69,4 +57,20 @@ $container['socialite'] = function () {
 
 $container['avaibleProviders'] = function () {
     return ['google', 'github'];
+};
+
+$container['DocsController'] = function ($container) {
+    return new \dominx99\school\Controllers\DocsController($container);
+};
+
+$container['AuthController'] = function ($container) {
+    return new \dominx99\school\Controllers\AuthController($container);
+};
+
+$container['ApiAuthController'] = function ($container) {
+    return new \dominx99\school\Controllers\Api\ApiAuthController($container);
+};
+
+$container['SocialiteController'] = function ($container) {
+    return new \dominx99\school\Controllers\SocialiteController($container);
 };

@@ -1,7 +1,5 @@
 <?php
 
-use Slim\Http\Response;
-
 /**
  * Turn on Csrf Protection when environment is not "testing"
  */
@@ -13,9 +11,7 @@ if (getenv('APP_ENV') != 'development') {
  * Everyone can access those routes
  */
 $app->group('/', function () use ($app) {
-    $app->get('docs', function () {
-        return $this->view->render(new Response(), 'docs/docs.twig');
-    })->setName('docs');
+    $app->get('docs', 'DocsController:index')->setName('docs');
 });
 
 /**
