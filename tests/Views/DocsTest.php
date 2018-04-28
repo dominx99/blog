@@ -4,7 +4,7 @@ namespace dominx99\school\Views;
 
 use dominx99\school\BaseTestCase;
 
-class ValidatorTest extends BaseTestCase
+class DocsTest extends BaseTestCase
 {
     public function testGetDocsPage()
     {

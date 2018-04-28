@@ -4,8 +4,9 @@
 
 {% block content %}
 
+    <h2>Logowanie</h2>
     <form action="{{path_for('auth.login')}}" method="post">
-        <h2>Logowanie</h2>
+        {{csrf_field() | raw}}
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="jan@kowalski.pl">

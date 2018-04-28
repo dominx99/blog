@@ -3,8 +3,8 @@
 /**
  * Turn on Csrf Protection when environment is not "testing"
  */
-if (getenv('APP_ENV') != 'development') {
-    $app->add($container->get('csrf'));
+if (PHP_SAPI != 'cli') {
+    $app->add($container->get('guard'));
 }
 
 /**
