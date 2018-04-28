@@ -41,13 +41,16 @@ class AuthControllerTest extends BaseTestCase
         $this->assertSame($this->container->router->pathFor('dashboard'), $response->getHeader('Location')[0]);
     }
 
-    public function testThatRegistrationWithWrongDataWillRedirectBack()
+    /**
+     * @dataProvider registerDataProvider
+     */
+    public function testThatRegistrationWithWrongDataWillRedirectBack($email, $password)
     {
         // TODO: TEST email Validation
         $params = [
-            'email' => 'ddd@ddd.com',
+            'email' => $email,
             'name' => 'ddd',
-            'password' => 'ddd' // password is too short (6, 16)
+            'password' => $password
         ];
 
         $request = $this->newRequest([
@@ -62,6 +65,19 @@ class AuthControllerTest extends BaseTestCase
         $this->assertFalse($userExists);
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertSame($this->container->router->pathFor('auth.register'), $response->getHeader('Location')[0]);
+    }
+
+    public function testEmailAvaibleRule()
+    {
+        $request = $this->newRequest([
+            'uri' => 'register',
+            'method' => 'post'
+        ], $this->user);
+
+        $response = $this->app->process($request, new Response());
+
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals($this->container->router->pathFor('auth.register'), $response->getHeader('Location')[0]);
     }
 
     /**
@@ -111,5 +127,14 @@ class AuthControllerTest extends BaseTestCase
            ['aaa.com', 'abcabc'],
            ['aaa@aaa.com', 'aaa']
        ];
+    }
+
+    public function registerDataProvider()
+    {
+        return [
+            ['ddd@ddd.com', 'ddd'], // password too shord (6, 16)
+            ['ccc@', '12345678'],
+            ['ccc.com', 'cccaaa']
+        ];
     }
 }

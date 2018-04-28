@@ -28,7 +28,7 @@ class AuthController extends Controller
     public function register($request, $response)
     {
         $validation = $this->validator->validate($request, [
-            'email' => v::notEmpty()->email(),
+            'email' => v::notEmpty()->email()->emailAvaible(),
             'name' => v::notEmpty()->alpha(),
             'password' => v::notEmpty()->length(6, 16)
         ]);

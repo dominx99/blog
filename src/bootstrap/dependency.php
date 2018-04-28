@@ -3,6 +3,7 @@
 use Overtrue\Socialite\SocialiteManager;
 use Dotenv\Dotenv;
 use dominx99\school\Capsule;
+use Respect\Validation\Validator as v;
 
 $container = $app->getContainer();
 
@@ -75,3 +76,5 @@ $container['ApiAuthController'] = function ($container) {
 $container['SocialiteController'] = function ($container) {
     return new \dominx99\school\Controllers\SocialiteController($container);
 };
+
+v::with('dominx99\school\Validation\\Rules\\');
