@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %} | School Info</title>
+
+    <link rel="stylesheet" href="{{base_url()}}/dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="{{base_url()}}/dist/css/main.min.css">
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row height-100">
+            <div class="col-lg-8 col-left">
+                <div class="auth-left">
+                    <div class="auth-brand">School Info</div>
+                    <div class="auth-center">
+                        <h1>Witaj w School Info,</h1>
+                        <p>
+                            twoja klasa jest nie zorganizowana? Chcesz, żeby to się zmieniło?
+                        </p>
+                        <p>
+                            Ta aplikacja daje możliwości dodawania prac domowych, sprawdzianów, edycji planu lekcji oraz zarządzania użytkownikami w klasie. Załóż konto już teraz!
+                        </p>
+                     </div>
+                     <div class="auth-footer">
+                         <p>School Info &copy; 2018</p>
+                         <div class="link-box">
+                             <a href="#">Android</a>
+                             <a href="#">Dokumentacja</a>
+                         </div>
+                     </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-right">
+                <div class="auth-right">
+                    <div class="auth-brand">School Info</div>
+                    <div class="auth-center">
+                        {% block content %}{% endblock %}
+                     </div>
+                     <div class="auth-footer">
+                         <p>School Info &copy; 2018</p>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

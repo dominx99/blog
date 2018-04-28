@@ -34,7 +34,7 @@ class AuthController extends Controller
         ]);
 
         if ($validation->failed()) {
-            return $response->withRedirect($this->router->pathFor('register'));
+            return $response->withRedirect($this->router->pathFor('auth.register'));
         }
 
         $params = $request->getParams();
@@ -55,7 +55,7 @@ class AuthController extends Controller
         $params = $request->getParams();
 
         if (!$this->auth->attempt($params['email'], $params['password'])) {
-            return $response->withRedirect($this->router->pathFor('login', [
+            return $response->withRedirect($this->router->pathFor('auth.login', [
                 'error' => 'Wrong email or password.'
             ]));
         }

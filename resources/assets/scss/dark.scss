@@ -1,0 +1,27 @@
+body {
+    &.dark-theme {
+        background-color: lighten($dark, 5);
+        color: $light;
+    }
+}
+
+.dark-theme {
+    a {
+        color: $light;
+    }
+
+    .nav {
+        background-color: $dark;
+
+        .menu {
+            background-color: $dark;
+
+            a {
+                &:hover {
+                    background-color: lighten($dark, 5);
+                    color: $light;
+                }
+            }
+        }
+    }
+}

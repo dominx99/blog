@@ -1,4 +1,11 @@
-/vendor/
-/build/
+.idea
+dist
+
+vendor
+cache
+build
+node_modules
+
 composer.lock
+package-lock.json
 .env

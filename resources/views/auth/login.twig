@@ -1,1 +1,35 @@
-Login
+{% extends 'layouts/auth.twig' %}
+
+{% block title %}Logowanie{% endblock %}
+
+{% block content %}
+
+    <form action="{{path_for('auth.login')}}" method="post">
+        <h2>Logowanie</h2>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="jan@kowalski.pl">
+        </div>
+        <div class="form-group">
+            <label for="password">Hasło</label>
+            <input type="password" id="password" name="password" placeholder="******">
+        </div>
+        <input type="submit" name="" value="Zaloguj">
+    </form>
+    <div class="social-providers">
+        <p>Połącz z</p>
+        <div class="row">
+            <div class="col-6">
+                <a href="{{path_for('auth.provider', {provider: 'google'})}}" class="btn btn-google" type="button" id="email" name="button">Google</a>
+            </div>
+            <div class="col-6">
+                <a href="{{path_for('auth.provider', {provider: 'github'})}}" class="btn btn-github" type="button" id="password" name="button">Github</a>
+            </div>
+        </div>
+    </div>
+    <div class="create-box">
+        <p>Jesteś nowy?</p>
+        <a href="{{path_for('auth.register')}}" class="btn btn-primary" name="button">Załóż konto</a>
+    </div>
+
+{% endblock %}

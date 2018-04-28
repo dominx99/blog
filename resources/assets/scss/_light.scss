@@ -1,0 +1,27 @@
+body {
+    &.light-theme {
+        background-color: $light;
+        color: $dark;
+    }
+}
+
+.light-theme {
+    a {
+        color: $dark;
+    }
+
+    .nav {
+        background-color: $white;
+
+        .menu {
+            background-color: $white;
+
+            a {
+                &:hover {
+                    background-color: $main-color;
+                    color: $light;
+                }
+            }
+        }
+    }
+}

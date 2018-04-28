@@ -1,0 +1,27 @@
+.header {
+    box-shadow: 0 8px 6px -9px $shadow;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    z-index: 1070;
+
+    a {
+        text-decoration: none;
+        font-weight: 400;
+
+        .icon:before {
+            margin-right: -1rem;
+        }
+    }
+
+    .nav-item {
+        position: relative;
+        > a {
+            padding: 1rem;
+            display: block;
+            // text-transform: uppercase;
+        }
+    }
+}

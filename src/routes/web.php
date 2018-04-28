@@ -22,13 +22,13 @@ $app->group('/', function () use ($app) {
         return 'home';
     })->setName('home');
 
-    $app->get('register', 'AuthController:registerForm')->setName('register');
+    $app->get('register', 'AuthController:registerForm')->setName('auth.register');
     $app->post('register', 'AuthController:register');
 
-    $app->get('login', 'AuthController:loginForm')->setName('login');
+    $app->get('login', 'AuthController:loginForm')->setName('auth.login');
     $app->post('login', 'AuthController:login');
 
-    $app->get('auth/{provider}', 'SocialiteController:auth');
+    $app->get('auth/{provider}', 'SocialiteController:auth')->setName('auth.provider');
     $app->get('redirect/{provider}', 'SocialiteController:handle');
 })->add(new \dominx99\school\Middleware\GuestMiddleware($container));
 

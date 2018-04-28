@@ -1,0 +1,162 @@
+.height-100 {
+    min-height: 100vh;
+    color: $light;
+
+    a {
+        color: $light;
+        text-decoration: none;
+    }
+}
+
+.col-left {
+    background-color: $main-color;
+}
+
+.auth-left {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem 5rem;
+
+    p {
+        text-align: justify;
+    }
+
+    .auth-brand {
+        font-size: 170%;
+    }
+
+    .auth-center {
+        font-size: 120%;
+
+        h1, p {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    .auth-footer {
+        color: darken($light, 10);
+
+        a {
+            color: darken($light, 10);
+        }
+
+        p {
+            margin-right: auto;
+        }
+
+        display: flex;
+        justify-content: flex-end;
+
+        .link-box {
+            a {
+                margin: 0 .3rem;
+            }
+        }
+    }
+}
+
+.col-right {
+    background-color: lighten($main-color, 4);
+}
+
+.auth-right {
+    height: 100%;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .auth-brand {
+        text-align: center;
+        font-size: 120%;
+    }
+
+    .auth-center {
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"] {
+            background-color: transparent;
+            outline: none;
+            border: none;
+            width: 100%;
+            padding: .6rem 0;
+            color: $light;
+            border-bottom: 2px solid $main-color;
+            font-size: 100%;
+        }
+
+        input[type="submit"], .btn {
+            display: block;
+            text-align: center;
+            font-size: 100%;
+            text-transform: uppercase;
+            background-color: $main-color;
+            color: $light;
+            padding: .75rem 1rem;
+            border: none;
+            border-radius: .1rem;
+            width: 100%;
+            box-shadow: 1px 1px 1px 0 $shadow;
+            cursor: pointer;
+        }
+
+        input::placeholder {
+            color: darken($light, 10);
+        }
+
+        form {
+            margin-bottom: 2rem;
+        }
+
+        p {
+            margin-bottom: .7rem;
+        }
+
+        .social-providers {
+            margin-bottom: 2rem;
+        }
+
+        .btn-google {
+            background-color: #cf4332;
+        }
+
+        .btn-github {
+            background-color: #464646;
+        }
+    }
+
+    .auth-footer {
+        text-align: center;
+        color: darken($light, 10);
+    }
+}
+
+@media (max-width: $lg) {
+    .col-left {
+        display: none;
+        padding: 2rem 2rem;
+    }
+}
+
+@media (min-width: $lg) {
+    .auth-right {
+        justify-content: center;
+
+        .auth-brand {
+            display: none;
+        }
+
+        .auth-footer {
+            display: none;
+        }
+    }
+}

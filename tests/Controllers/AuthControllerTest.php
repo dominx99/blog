@@ -61,7 +61,7 @@ class AuthControllerTest extends BaseTestCase
 
         $this->assertFalse($userExists);
         $this->assertEquals(302, $response->getStatusCode());
-        $this->assertSame($this->container->router->pathFor('register'), $response->getHeader('Location')[0]);
+        $this->assertSame($this->container->router->pathFor('auth.register'), $response->getHeader('Location')[0]);
     }
 
     /**
@@ -102,7 +102,7 @@ class AuthControllerTest extends BaseTestCase
         $response = ($this->app)($request, new Response());
 
         $this->assertFalse($this->container->auth->check());
-        $this->assertSame($this->container->router->pathFor('login'), $response->getHeader('Location')[0]);
+        $this->assertSame($this->container->router->pathFor('auth.login'), $response->getHeader('Location')[0]);
     }
 
     public function loginDataProvider()

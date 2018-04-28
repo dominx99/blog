@@ -1,0 +1,38 @@
+{
+  "name": "school",
+  "version": "1.0.0",
+  "description": "School Info",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^3.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dominx99/school-info.git"
+  },
+  "keywords": [
+    "School",
+    "Info"
+  ],
+  "author": "Dominik Chylo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dominx99/school-info/issues"
+  },
+  "homepage": "https://github.com/dominx99/school-info#readme"
+}

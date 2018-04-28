@@ -24,7 +24,7 @@ class AuthMiddlewareTest extends BaseTestCase
         $response = $this->app->process($request, new Response());
 
         $this->assertFalse(empty($response->getHeader('Location')));
-        $this->assertSame($this->container->router->pathFor('login'), $response->getHeader('Location')[0]);
+        $this->assertSame($this->container->router->pathFor('auth.login'), $response->getHeader('Location')[0]);
 
         $this->container->auth->authorize(1);
 
