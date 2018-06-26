@@ -15,16 +15,16 @@
             <label for="password">Hasło</label>
             <input type="password" id="password" name="password" placeholder="******">
         </div>
-        <input type="submit" name="" value="Zaloguj">
+        <input class="one-click" type="submit" name="" value="Zaloguj">
     </form>
     <div class="social-providers">
         <p>Połącz z</p>
         <div class="row">
             <div class="col-6">
-                <a href="{{path_for('auth.provider', {provider: 'google'})}}" class="btn btn-google" type="button" id="email" name="button">Google</a>
+                <a href="{{path_for('auth.provider', {provider: 'google'})}}" class="btn btn-google one-click" type="button" id="email" name="button">Google</a>
             </div>
             <div class="col-6">
-                <a href="{{path_for('auth.provider', {provider: 'github'})}}" class="btn btn-github" type="button" id="password" name="button">Github</a>
+                <a href="{{path_for('auth.provider', {provider: 'github'})}}" class="btn btn-github one-click" type="button" id="password" name="button">Github</a>
             </div>
         </div>
     </div>
