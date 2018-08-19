@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use dominx99\school\BaseTestCase;
 use dominx99\school\DatabaseTrait;
-use dominx99\school\Models\User;
 use dominx99\school\Models\SocialProvider;
+use dominx99\school\Models\User;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserTest extends BaseTestCase
 {

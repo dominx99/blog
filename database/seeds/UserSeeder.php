@@ -16,9 +16,9 @@ class UserSeeder extends BaseSeeder
         }
 
         User::create([
-            'email' => 'aaa@aaa.com',
-            'name' => 'aaa',
-            'password' => password_hash('abcdef', PASSWORD_DEFAULT)
+            'email'    => 'aaa@aaa.com',
+            'name'     => 'aaa',
+            'password' => password_hash('abcdef', PASSWORD_DEFAULT),
         ]);
     }
 }

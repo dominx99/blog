@@ -2,9 +2,9 @@
 
 namespace dominx99\school\Services\Database;
 
+use Illuminate\Database\Capsule\Manager;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Illuminate\Database\Capsule\Manager;
 
 class EloquentDatabaseProvider implements ServiceProviderInterface
 {
@@ -27,7 +27,7 @@ class EloquentDatabaseProvider implements ServiceProviderInterface
         $capsule->setAsGlobal();
         $capsule->bootEloquent();
 
-        $container['db'] = function ($container) use ($capsule) {
+        $container['db'] = function () use ($capsule) {
             return $capsule;
         };
     }

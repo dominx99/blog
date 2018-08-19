@@ -16,7 +16,7 @@ class CsrfExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('csrf_field', [$this, 'csrfField'])
+            new \Twig_SimpleFunction('csrf_field', [$this, 'csrfField']),
         ];
     }
 

@@ -15,7 +15,7 @@ class SocialiteController extends Controller
 {
     public function auth($request)
     {
-        $route = $request->getAttribute('route');
+        $route    = $request->getAttribute('route');
         $provider = $route->getArgument('provider');
 
         if (!in_array($provider, $this->avaibleProviders)) {
@@ -28,7 +28,7 @@ class SocialiteController extends Controller
 
     public function handle($request, $response)
     {
-        $route = $request->getAttribute('route');
+        $route    = $request->getAttribute('route');
         $provider = $route->getArgument('provider');
 
         if (!in_array($provider, $this->avaibleProviders)) {
@@ -46,12 +46,12 @@ class SocialiteController extends Controller
         if (!$socialProvider) {
             $user = User::firstOrCreate([
                 'email' => $socialUser->getEmail(),
-                'name' => $socialUser->getName()
+                'name'  => $socialUser->getName(),
             ]);
 
             $user->socialProviders()->create([
                 'provider_id' => $socialUser->getId(),
-                'provider' => $provider
+                'provider'    => $provider,
             ]);
         } else {
             $user = $socialProvider->user;

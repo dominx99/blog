@@ -2,10 +2,9 @@
 
 namespace dominx99\school\Validation;
 
+use dominx99\school\Validation\Validator;
 use PHPUnit\Framework\TestCase;
 use Respect\Validation\Validator as v;
-use dominx99\school\Validation\Validator;
-
 use Slim\Http\Environment;
 use Slim\Http\Request;
 
@@ -16,18 +15,18 @@ class ValidatorTest extends TestCase
     public function setUp()
     {
         $this->rules = [
-            'email' => v::notEmpty()->email(),
-            'name' => v::notEmpty()->alpha(),
-            'password' => v::notEmpty()->length(6, 16)
+            'email'    => v::notEmpty()->email(),
+            'name'     => v::notEmpty()->alpha(),
+            'password' => v::notEmpty()->length(6, 16),
         ];
     }
 
     public function testThatRequestCanBeValidated()
     {
         $params = [
-            'email' => 'ddd@ddd.com',
-            'name' => 'Dominik',
-            'password' => 'haslo123'
+            'email'    => 'ddd@ddd.com',
+            'name'     => 'Dominik',
+            'password' => 'haslo123',
         ];
 
         $env = Environment::mock();
@@ -41,9 +40,9 @@ class ValidatorTest extends TestCase
     public function testThatErrorsAreSetAfterFailedValidation()
     {
         $params = [
-            'email' => 'ddd.com',
-            'name' => '  ',
-            'password' => ''
+            'email'    => 'ddd.com',
+            'name'     => '  ',
+            'password' => '',
         ];
 
         $env = Environment::mock();

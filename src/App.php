@@ -15,8 +15,8 @@ class App
     public function __construct()
     {
         $settings = require __DIR__ . '/bootstrap/settings.php';
-        $app = new \Slim\App($settings);
-        
+        $app      = new \Slim\App($settings);
+
         require __DIR__ . '/bootstrap/dependency.php';
         require __DIR__ . '/routes/web.php';
         require __DIR__ . '/routes/api.php';

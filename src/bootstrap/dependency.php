@@ -1,7 +1,6 @@
 <?php
 
 use Overtrue\Socialite\SocialiteManager;
-use Dotenv\Dotenv;
 use Respect\Validation\Validator as v;
 
 $container = $app->getContainer();
@@ -10,7 +9,7 @@ $container->register(new \dominx99\school\Services\Database\EloquentDatabaseProv
 
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig('resources/views', [
-        'cache' => false
+        'cache' => false,
     ]);
 
     // Instantiate and add Slim specific extension
@@ -40,13 +39,13 @@ $container['socialite'] = function () {
         'google' => [
             'client_id'     => $_ENV[$prefix . 'GOOGLE_CLIENT_ID'],
             'client_secret' => $_ENV[$prefix . 'GOOGLE_SECRET'],
-            'redirect'      => $_ENV[$prefix . 'GOOGLE_REDIRECT']
+            'redirect'      => $_ENV[$prefix . 'GOOGLE_REDIRECT'],
         ],
         'github' => [
             'client_id'     => $_ENV[$prefix . 'GITHUB_CLIENT_ID'],
             'client_secret' => $_ENV[$prefix . 'GITHUB_SECRET'],
-            'redirect'      => $_ENV[$prefix . 'GITHUB_REDIRECT']
-        ]
+            'redirect'      => $_ENV[$prefix . 'GITHUB_REDIRECT'],
+        ],
     ];
 
     return new SocialiteManager($config);

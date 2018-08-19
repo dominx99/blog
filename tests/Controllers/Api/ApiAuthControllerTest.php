@@ -2,14 +2,14 @@
 
 namespace dominx99\school\Controllers\Api;
 
+use dominx99\school\Auth\Auth;
 use dominx99\school\BaseTestCase;
-use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Slim\Http\Response;
-use Slim\App;
 use dominx99\school\DatabaseTrait;
 use dominx99\school\Models\User;
-use dominx99\school\Auth\Auth;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Slim\App;
+use Slim\Http\Response;
 
 class ApiAuthControllerTest extends BaseTestCase
 {
@@ -18,18 +18,18 @@ class ApiAuthControllerTest extends BaseTestCase
     public function testThatApiRegistrationWorks()
     {
         $params = [
-            'email' => 'ddd@ddd.com',
-            'name' => 'ddd',
-            'password' => 'dddddd'
+            'email'    => 'ddd@ddd.com',
+            'name'     => 'ddd',
+            'password' => 'dddddd',
         ];
 
         $request = $this->newRequest([
-            'uri' => 'api/register',
-            'method' => 'post',
-            'content_type' => 'application/json'
+            'uri'          => 'api/register',
+            'method'       => 'post',
+            'content_type' => 'application/json',
         ], $params);
 
-        $app = $this->app;
+        $app      = $this->app;
         $response = $app($request, new Response());
 
         $userExists = User::where('email', $params['email'])->exists();
@@ -39,7 +39,7 @@ class ApiAuthControllerTest extends BaseTestCase
         $this->assertEquals($this->container->auth->user()->email, $params['email']);
 
         $signer = new Sha256();
-        $key = getenv('JWT_KEY');
+        $key    = getenv('JWT_KEY');
 
         $token = (string) (new Builder)
             ->set('id', $this->container->auth->user()->id)
@@ -47,9 +47,9 @@ class ApiAuthControllerTest extends BaseTestCase
             ->getToken();
 
         $expected = json_encode([
-            'token' => $token,
+            'token'  => $token,
             'status' => 'success',
-            'code' => 200
+            'code'   => 200,
         ]);
 
         $authToken = $this->container->auth->getToken();
@@ -61,25 +61,25 @@ class ApiAuthControllerTest extends BaseTestCase
     public function testThatApiValidatesData()
     {
         $params = [
-            'email' => 'ddd.com', // bad email
-            'name' => '', // name cannot be empty
-            'password' => 'abc' // passwod is too short (6, 16)
+            'email'    => 'ddd.com', // bad email
+            'name'     => '', // name cannot be empty
+            'password' => 'abc', // passwod is too short (6, 16)
         ];
 
         $request = $this->newRequest([
-            'uri' => 'api/register',
-            'method' => 'post',
-            'content_type' => 'application/json'
+            'uri'          => 'api/register',
+            'method'       => 'post',
+            'content_type' => 'application/json',
         ], $params);
 
-        $app = $this->app;
+        $app      = $this->app;
         $response = $app($request, new Response());
 
         $userExists = User::where('email', $params['email'])->exists();
 
         $expected = [
             'status' => 'fail',
-            'code' => 300
+            'code'   => 300,
         ];
 
         $expected = json_encode($expected);
@@ -91,9 +91,9 @@ class ApiAuthControllerTest extends BaseTestCase
     public function testThatApiLoginWokrs()
     {
         $request = $this->newRequest([
-            'uri' => 'api/login',
-            'method' => 'post',
-            'content_type' => 'application/json'
+            'uri'          => 'api/login',
+            'method'       => 'post',
+            'content_type' => 'application/json',
         ], $this->user);
 
         $response = ($this->app)($request, new Response());
@@ -101,17 +101,17 @@ class ApiAuthControllerTest extends BaseTestCase
         $this->assertTrue($this->container->auth->check());
 
         $signer = new Sha256();
-        $key = getenv('JWT_KEY');
+        $key    = getenv('JWT_KEY');
 
         $token = (string) (new Builder)
-            ->set('id' ,$this->container->auth->user()->id)
+            ->set('id', $this->container->auth->user()->id)
             ->sign($signer, $key)
             ->getToken();
 
         $expected = [
-            'token' => $token,
+            'token'  => $token,
             'status' => 'success',
-            'code' => 200
+            'code'   => 200,
         ];
 
         $expected = json_encode($expected);
@@ -124,9 +124,9 @@ class ApiAuthControllerTest extends BaseTestCase
         $this->user = array_merge($this->user, ['password' => 'aaa']);
 
         $request = $this->newRequest([
-            'uri' => 'api/login',
-            'method' => 'post',
-            'content_type' => 'application/json'
+            'uri'          => 'api/login',
+            'method'       => 'post',
+            'content_type' => 'application/json',
         ], $this->user);
 
         $response = ($this->app)($request, new Response());
@@ -135,7 +135,7 @@ class ApiAuthControllerTest extends BaseTestCase
 
         $expected = [
             'status' => 'fail',
-            'code' => 301 // TODO: change code
+            'code'   => 301, // TODO: change code
         ];
         $expected = json_encode($expected);
 

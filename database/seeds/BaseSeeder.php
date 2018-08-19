@@ -16,9 +16,9 @@ class BaseSeeder extends AbstractSeed
 
     protected function init()
     {
-        $this->faker = Faker\Factory::create();
+        $this->faker   = Faker\Factory::create();
         $this->factory = new \Illuminate\Database\Eloquent\Factory($this->faker);
-        $factories = glob(static::FACTORIES__PATH . '*.php');
+        $factories     = glob(static::FACTORIES__PATH . '*.php');
         foreach ($factories as $factory) {
             /** @noinspection PhpIncludeInspection */
             require $factory;

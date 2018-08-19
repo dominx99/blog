@@ -15,7 +15,7 @@ class SocialProvider extends Model
      * @var array $fillable - list of fillable columns in database
      */
     protected $fillable = [
-        'provider_id', 'provider' // WARNING: should i use user_id?
+        'provider_id', 'provider', // WARNING: should i use user_id?
     ];
 
     /**

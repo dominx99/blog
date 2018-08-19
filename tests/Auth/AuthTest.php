@@ -3,9 +3,8 @@
 namespace dominx99\school\Auth;
 
 use dominx99\school\BaseTestCase;
-use dominx99\school\App;
-use dominx99\school\Models\User;
 use dominx99\school\DatabaseTrait;
+use dominx99\school\Models\User;
 
 class AuthTest extends BaseTestCase
 {
@@ -36,9 +35,9 @@ class AuthTest extends BaseTestCase
     public function testThatAttemptionToLoginWorks()
     {
         $user = User::create([
-            'email' => 'ddd@ddd.com',
-            'name' => 'dddddd',
-            'password' => password_hash('dddddd', PASSWORD_DEFAULT)
+            'email'    => 'ddd@ddd.com',
+            'name'     => 'dddddd',
+            'password' => password_hash('dddddd', PASSWORD_DEFAULT),
         ]);
 
         $result = $this->container->auth->attempt('ddd@ddd.com', 'dddddd');
@@ -54,9 +53,9 @@ class AuthTest extends BaseTestCase
     public function testThatAttemtionWithWrongDataWontAuth($email, $password)
     {
         $user = User::create([
-            'email' => 'ddd@ddd.com',
-            'name' => 'dddddd',
-            'password' => password_hash('dddddd', PASSWORD_DEFAULT)
+            'email'    => 'ddd@ddd.com',
+            'name'     => 'dddddd',
+            'password' => password_hash('dddddd', PASSWORD_DEFAULT),
         ]);
 
         $result = $this->container->auth->attempt($email, $password);
@@ -68,8 +67,8 @@ class AuthTest extends BaseTestCase
     {
         return [
             ['ddd.com', 'ddd'],
-            ['ddd@ddd.com' , 'ddd'],
-            ['ddd.com', 'dddddd']
+            ['ddd@ddd.com', 'ddd'],
+            ['ddd.com', 'dddddd'],
         ];
     }
 }

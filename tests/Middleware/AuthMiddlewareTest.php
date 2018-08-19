@@ -2,10 +2,10 @@
 
 namespace dominx99\school\Middleware;
 
-use dominx99\school\BaseTestCase;
-use Slim\Http\Response;
-use dominx99\school\DatabaseTrait;
 use dominx99\school\Auth\Auth;
+use dominx99\school\BaseTestCase;
+use dominx99\school\DatabaseTrait;
+use Slim\Http\Response;
 
 class AuthMiddlewareTest extends BaseTestCase
 {
@@ -17,8 +17,8 @@ class AuthMiddlewareTest extends BaseTestCase
     public function testThatGuestCannotAccessRoutesProtectedByAuthMiddleware($route)
     {
         $request = $this->newRequest([
-            'uri' => $route,
-            'method' => 'get'
+            'uri'    => $route,
+            'method' => 'get',
         ]);
 
         $response = $this->app->process($request, new Response());
@@ -35,7 +35,7 @@ class AuthMiddlewareTest extends BaseTestCase
     public function routesProvider()
     {
         return [
-            ['/dashboard']
+            ['/dashboard'],
         ];
     }
 }

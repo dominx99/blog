@@ -18,7 +18,7 @@ if (file_exists($root . $envFile)) {
 return [
     'settings' => [
         'displayErrorDetails' => getenv('APP_DEBUG'),
-        'db' => [
+        'db'                  => [
             'driver'    => getenv('DB_CONNECTION'),
             'host'      => getenv('DB_HOST'),
             'database'  => getenv('DB_DATABASE'),

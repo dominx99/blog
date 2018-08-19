@@ -2,10 +2,9 @@
 
 namespace dominx99\school\Controllers;
 
+use dominx99\school\Models\User;
 use Respect\Validation\Validator as v;
 use Slim\Http\Response;
-
-use dominx99\school\Models\User;
 
 /**
  * @property object $validator
@@ -28,9 +27,9 @@ class AuthController extends Controller
     public function register($request, $response)
     {
         $validation = $this->validator->validate($request, [
-            'email' => v::notEmpty()->email()->emailAvaible(),
-            'name' => v::notEmpty()->alpha(),
-            'password' => v::notEmpty()->length(6, 16)
+            'email'    => v::notEmpty()->email()->emailAvaible(),
+            'name'     => v::notEmpty()->alpha(),
+            'password' => v::notEmpty()->length(6, 16),
         ]);
 
         if ($validation->failed()) {
@@ -40,9 +39,9 @@ class AuthController extends Controller
         $params = $request->getParams();
 
         $user = User::create([
-            'email' => $params['email'],
-            'name' => $params['name'],
-            'password' => password_hash($params['password'], PASSWORD_DEFAULT)
+            'email'    => $params['email'],
+            'name'     => $params['name'],
+            'password' => password_hash($params['password'], PASSWORD_DEFAULT),
         ]);
 
         $this->auth->authorize($user->id);
@@ -56,7 +55,7 @@ class AuthController extends Controller
 
         if (!$this->auth->attempt($params['email'], $params['password'])) {
             return $response->withRedirect($this->router->pathFor('auth.login', [
-                'error' => 'Wrong email or password.'
+                'error' => 'Wrong email or password.',
             ]));
         }
 

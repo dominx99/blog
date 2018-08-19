@@ -2,14 +2,13 @@
 
 namespace dominx99\school;
 
+use dominx99\school\Models\User;
+use Phinx\Config\Config as PhinxConfig;
+use Phinx\Console\PhinxApplication;
+use Phinx\Migration\Manager as PhinxManager;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Yaml\Yaml;
-use Phinx\Config\Config as PhinxConfig;
-use Phinx\Migration\Manager as PhinxManager;
-use Phinx\Console\PhinxApplication;
-use Slim\Http\Response;
-use dominx99\school\Models\User;
 
 trait DatabaseTrait
 {
@@ -18,9 +17,9 @@ trait DatabaseTrait
     public function setUserData()
     {
         $this->user = [
-            'email' => 'aaa@aaa.com',
-            'name' => 'aaa',
-            'password' => 'abcdef'
+            'email'    => 'aaa@aaa.com',
+            'name'     => 'aaa',
+            'password' => 'abcdef',
         ];
     }
 
@@ -30,10 +29,10 @@ trait DatabaseTrait
      */
     public function migrate()
     {
-        $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'phinx.php';
-        $configArray = require($path);
+        $path        = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'phinx.php';
+        $configArray = require $path;
 
-        $config = new PhinxConfig($configArray);
+        $config  = new PhinxConfig($configArray);
         $manager = new PhinxManager($config, new StringInput(' '), new NullOutput());
 
         $manager->migrate('testing');

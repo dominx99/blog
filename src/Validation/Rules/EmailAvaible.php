@@ -2,8 +2,8 @@
 
 namespace dominx99\school\Validation\Rules;
 
-use Respect\Validation\Rules\AbstractRule;
 use dominx99\school\Models\User;
+use Respect\Validation\Rules\AbstractRule;
 
 class EmailAvaible extends AbstractRule
 {

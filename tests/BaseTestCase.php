@@ -2,14 +2,14 @@
 
 namespace dominx99\school;
 
+use dominx99\school\App;
 use PHPUnit\Framework\TestCase;
 use Slim\Http\Environment;
 use Slim\Http\Headers;
-use Slim\Http\RequestBody;
 use Slim\Http\Request;
+use Slim\Http\RequestBody;
 use Slim\Http\Response;
 use Slim\Http\Uri;
-use dominx99\school\App;
 
 class BaseTestCase extends TestCase
 {
@@ -31,7 +31,7 @@ class BaseTestCase extends TestCase
     {
         parent::setUp();
 
-        if(!isset($_SESSION) && !headers_sent()) {
+        if (!isset($_SESSION) && !headers_sent()) {
             session_start();
         }
 
@@ -61,7 +61,7 @@ class BaseTestCase extends TestCase
      */
     public function createApplication()
     {
-        $this->app = (new App())->boot();
+        $this->app       = (new App())->boot();
         $this->container = $this->app->getContainer();
     }
 
@@ -69,7 +69,7 @@ class BaseTestCase extends TestCase
     {
         $request = $this->newRequest([
             'method' => $method,
-            'uri' => $uri
+            'uri'    => $uri,
         ]);
 
         return $this->app->process($request, new Response());
@@ -83,19 +83,19 @@ class BaseTestCase extends TestCase
     {
         $default = [
             'content_type' => 'application/json',
-            'method' => 'get',
-            'uri' => '/'
+            'method'       => 'get',
+            'uri'          => '/',
         ];
 
         $options = array_merge($default, $options);
 
-        $env = Environment::mock();
-        $uri = Uri::createFromString($options['uri']);
-        $headers = Headers::createFromEnvironment($env);
-        $cookies = [];
+        $env          = Environment::mock();
+        $uri          = Uri::createFromString($options['uri']);
+        $headers      = Headers::createFromEnvironment($env);
+        $cookies      = [];
         $serverParams = $env->all();
-        $body = new RequestBody();
-        $request = new Request($options['method'], $uri, $headers, $cookies, $serverParams, $body);
+        $body         = new RequestBody();
+        $request      = new Request($options['method'], $uri, $headers, $cookies, $serverParams, $body);
 
         $request = $request->withParsedBody($params);
         $request = $request->withHeader('Content-Type', $options['content_type']);

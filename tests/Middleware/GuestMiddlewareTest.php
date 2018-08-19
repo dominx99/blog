@@ -3,8 +3,8 @@
 namespace dominx99\school\Middleware;
 
 use dominx99\school\BaseTestCase;
-use Slim\Http\Response;
 use dominx99\school\DatabaseTrait;
+use Slim\Http\Response;
 
 class GuestMiddlewareTest extends BaseTestCase
 {
@@ -18,8 +18,8 @@ class GuestMiddlewareTest extends BaseTestCase
         $this->container->auth->authorize(1);
 
         $request = $this->newRequest([
-            'uri' => $route,
-            'method' => 'get'
+            'uri'    => $route,
+            'method' => 'get',
         ]);
 
         $response = $this->app->process($request, new Response());
@@ -37,7 +37,7 @@ class GuestMiddlewareTest extends BaseTestCase
     {
         return [
             ['/login'],
-            ['/register']
+            ['/register'],
         ];
     }
 }

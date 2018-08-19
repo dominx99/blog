@@ -2,16 +2,12 @@
 
 namespace dominx99\school\Controllers;
 
-use dominx99\school\BaseTestCase;
-use Slim\Http\Environment;
-use Slim\Http\Request;
-use Slim\Http\Response;
-use Psr\Http\Message\ServerRequestInterface;
 use dominx99\school\App;
+use dominx99\school\Auth\Auth;
+use dominx99\school\BaseTestCase;
 use dominx99\school\DatabaseTrait;
 use dominx99\school\Models\User;
-use dominx99\school\Auth\Auth;
-use dominx99\school\Csrf\Csrf;
+use Slim\Http\Response;
 
 class AuthControllerTest extends BaseTestCase
 {
@@ -20,14 +16,14 @@ class AuthControllerTest extends BaseTestCase
     public function testThatRegisterWorks()
     {
         $params = [
-            'email' => 'ddd@ddd.com',
-            'name' => 'ddd',
-            'password' => 'dddddd'
+            'email'    => 'ddd@ddd.com',
+            'name'     => 'ddd',
+            'password' => 'dddddd',
         ];
 
         $request = $this->newRequest([
-            'uri' => '/register',
-            'method' => 'post'
+            'uri'    => '/register',
+            'method' => 'post',
         ], $params);
 
         $response = ($this->app)($request, new Response());
@@ -48,14 +44,14 @@ class AuthControllerTest extends BaseTestCase
     {
         // TODO: TEST email Validation
         $params = [
-            'email' => $email,
-            'name' => 'ddd',
-            'password' => $password
+            'email'    => $email,
+            'name'     => 'ddd',
+            'password' => $password,
         ];
 
         $request = $this->newRequest([
-            'uri' => '/register',
-            'method' => 'post'
+            'uri'    => '/register',
+            'method' => 'post',
         ], $params);
 
         $response = ($this->app)($request, new Response());
@@ -70,8 +66,8 @@ class AuthControllerTest extends BaseTestCase
     public function testEmailAvaibleRule()
     {
         $request = $this->newRequest([
-            'uri' => 'register',
-            'method' => 'post'
+            'uri'    => 'register',
+            'method' => 'post',
         ], $this->user);
 
         $response = $this->app->process($request, new Response());
@@ -86,8 +82,8 @@ class AuthControllerTest extends BaseTestCase
     public function testThatLoginWorks()
     {
         $request = $this->newRequest([
-            'uri' => '/login',
-            'method' => 'post'
+            'uri'    => '/login',
+            'method' => 'post',
         ], $this->user);
 
         $response = ($this->app)($request, new Response());
@@ -106,13 +102,13 @@ class AuthControllerTest extends BaseTestCase
     public function testThatLoginWrongDataRedirectsBack($email, $password)
     {
         $params = [
-            'email' => $email,
-            'password' => $password
+            'email'    => $email,
+            'password' => $password,
         ];
 
         $request = $this->newRequest([
-            'uri' => '/login',
-            'method' => 'post'
+            'uri'    => '/login',
+            'method' => 'post',
         ], $params);
 
         $response = ($this->app)($request, new Response());
@@ -124,9 +120,9 @@ class AuthControllerTest extends BaseTestCase
     public function loginDataProvider()
     {
         return [
-           ['aaa.com', 'abcabc'],
-           ['aaa@aaa.com', 'aaa']
-       ];
+            ['aaa.com', 'abcabc'],
+            ['aaa@aaa.com', 'aaa'],
+        ];
     }
 
     public function registerDataProvider()
@@ -134,7 +130,7 @@ class AuthControllerTest extends BaseTestCase
         return [
             ['ddd@ddd.com', 'ddd'], // password too shord (6, 16)
             ['ccc@', '12345678'],
-            ['ccc.com', 'cccaaa']
+            ['ccc.com', 'cccaaa'],
         ];
     }
 }
