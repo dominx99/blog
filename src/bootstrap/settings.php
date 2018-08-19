@@ -10,6 +10,8 @@ if (PHP_SAPI == 'cli') {
     $envFile .= '.testing';
 }
 
+var_dump(PHP_SAPI);
+
 if (file_exists($root . $envFile)) {
     $dotenv = new Dotenv\Dotenv($root, $envFile);
     $dotenv->load();
