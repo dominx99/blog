@@ -15,6 +15,9 @@ $app = new \Slim\App($settings);
 $container = $app->getContainer();
 $container->register(new \dominx99\school\Services\Database\EloquentDatabaseProvider());
 
+var_dump($_ENV);
+die();
+
 return [
     'paths'                => [
         'migrations' => 'database/migrations',
