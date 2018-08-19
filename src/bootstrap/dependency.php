@@ -2,16 +2,11 @@
 
 use Overtrue\Socialite\SocialiteManager;
 use Dotenv\Dotenv;
-use dominx99\school\Capsule;
 use Respect\Validation\Validator as v;
 
 $container = $app->getContainer();
 
-$capsule = Capsule::init();
-
-$container['db'] = function () use ($capsule) {
-    return $capsule;
-};
+$container->register(new \dominx99\school\Services\Database\EloquentDatabaseProvider());
 
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig('resources/views', [

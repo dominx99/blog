@@ -30,12 +30,8 @@ trait DatabaseTrait
      */
     public function migrate()
     {
-        $app = new PhinxApplication();
-        $app->doRun(new StringInput("migrate -e testing"), new NullOutput());
-
-        $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'phinx.yml';
-        $file = file_get_contents($path);
-        $configArray = Yaml::parse($file);
+        $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'phinx.php';
+        $configArray = require($path);
 
         $config = new PhinxConfig($configArray);
         $manager = new PhinxManager($config, new StringInput(' '), new NullOutput());

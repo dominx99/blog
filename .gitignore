@@ -9,3 +9,5 @@ node_modules
 composer.lock
 package-lock.json
 .env
+.env.testing
+settings.json

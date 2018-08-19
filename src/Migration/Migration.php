@@ -3,7 +3,7 @@
 namespace dominx99\school\Migration;
 
 use Phinx\Migration\AbstractMigration;
-use dominx99\school\Capsule;
+use Illuminate\Database\Capsule\Manager;
 
 class Migration extends AbstractMigration
 {
@@ -21,7 +21,7 @@ class Migration extends AbstractMigration
      */
     public function init()
     {
-        $this->capsule = Capsule::getCapsule() ? Capsule::getCapsule() : Capsule::init();
+        $this->capsule = new Manager();
         $this->schema = $this->capsule->schema();
     }
 }

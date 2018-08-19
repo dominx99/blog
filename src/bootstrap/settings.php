@@ -4,8 +4,14 @@
 $root = dirname(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 
 // Load .env file
-if (file_exists($root . '.env')) {
-    $dotenv = new Dotenv\Dotenv($root);
+$envFile = '.env';
+
+if (PHP_SAPI == 'cli') {
+    $envFile .= '.testing';
+}
+
+if (file_exists($root . $envFile)) {
+    $dotenv = new Dotenv\Dotenv($root, $envFile);
     $dotenv->load();
 }
 
@@ -19,9 +25,9 @@ return [
             'username'  => getenv('DB_USERNAME'),
             'password'  => getenv('DB_PASSWORD'),
             'port'      => getenv('DB_PORT'),
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix' => 'school_'
+            'charset'   => getenv('DB_CHARSET'),
+            'collation' => getenv('DB_COLLATION'),
+            'prefix'    => getenv('DB_PREFIX'),
         ],
     ],
 ];
