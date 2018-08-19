@@ -9,7 +9,7 @@ class EnvLoader
     /**
      * @var string $root path to the main folder
      */
-    static $root = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+    protected static $root = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 
     /**
      * @var string $envFile name of file .env | .env,testing
